@@ -243,18 +243,12 @@ class PlayerPanel(threading.Thread):
                 'Fps': '' if zero(fps) else '%s к/с' % fps,
                 'Codec': info('VideoPlayer.VideoCodec').upper()}, final
 
-    def dv_profile(self, hdr):
-        """Профиль Dolby Vision: от Kodi (VideoPlayer.HdrDetail, с Kodi 22), а если он
-        не отдаёт (Kodi 21) - номер из .hdrinfo.json (bin/hdr-scan.py считает его по
-        RPU файла: 5, 7, 8). Пусто - профиль неизвестен."""
-        if hdr != 'dolbyvision':
-            return ''
-        profile = info('VideoPlayer.HdrDetail')
-        if not profile:
-            meta = self.hdr_meta() or {}
-            if meta.get('dv'):
-                profile = str(meta['dv'])
-        return profile
+    @staticmethod
+    def dv_profile(hdr):
+        """Профиль Dolby Vision - только от Kodi (VideoPlayer.HdrDetail, с Kodi 22).
+        Kodi 21 его не отдаёт - тогда пусто. Брать номер из .hdrinfo.json (NAS) решено
+        не надо (пользователь, 2026-11-10)."""
+        return info('VideoPlayer.HdrDetail') if hdr == 'dolbyvision' else ''
 
     def video_line(self):
         """Одной строкой: «Dolby Vision 7.6 FEL | 3840x2160 23.976 к/с | HEVC»."""
