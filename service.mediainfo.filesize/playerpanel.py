@@ -226,7 +226,7 @@ class PlayerPanel(threading.Thread):
         if zero(w):
             return {}, False
         hdr = info('VideoPlayer.HdrType')
-        profile = info('VideoPlayer.HdrDetail') if hdr == 'dolbyvision' else ''
+        profile = self.dv_profile(hdr)
         layer, _ = self.fel(hdr, profile)
         final, tag = True, ''
         kind = HDR_NAMES.get(hdr, hdr or 'SDR')
@@ -242,6 +242,19 @@ class PlayerPanel(threading.Thread):
         return {'Kind': kind, 'Layer': tag, 'Frame': '%sx%s' % (w, h),
                 'Fps': '' if zero(fps) else '%s к/с' % fps,
                 'Codec': info('VideoPlayer.VideoCodec').upper()}, final
+
+    def dv_profile(self, hdr):
+        """Профиль Dolby Vision: от Kodi (VideoPlayer.HdrDetail, с Kodi 22), а если он
+        не отдаёт (Kodi 21) - номер из .hdrinfo.json (bin/hdr-scan.py считает его по
+        RPU файла: 5, 7, 8). Пусто - профиль неизвестен."""
+        if hdr != 'dolbyvision':
+            return ''
+        profile = info('VideoPlayer.HdrDetail')
+        if not profile:
+            meta = self.hdr_meta() or {}
+            if meta.get('dv'):
+                profile = str(meta['dv'])
+        return profile
 
     def video_line(self):
         """Одной строкой: «Dolby Vision 7.6 FEL | 3840x2160 23.976 к/с | HEVC»."""
@@ -298,7 +311,7 @@ class PlayerPanel(threading.Thread):
         скин прячет то, чего нет (бейдж, строку слоя, кольцо)."""
         r = {}
         hdr = info('VideoPlayer.HdrType')
-        profile = info('VideoPlayer.HdrDetail') if hdr == 'dolbyvision' else ''
+        profile = self.dv_profile(hdr)
         layer, module = self.fel(hdr, profile)
         meta = self.hdr_meta() if hdr else None
         output, color, dv_out, out_hz = self.hdmi()
