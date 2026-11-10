@@ -55,16 +55,16 @@ Kinhank K9, Kodi FEL, фильм с Dolby Vision профиля 7 FEL.
 ## Установка
 
 Kodi 22 (Piers) - основной выпуск, Kodi 21 (Omega) - легаси. Все zip - в
-**[последнем релизе](https://github.com/garik128/skin.arctic.zephyr.2.resurrection.k9/releases/latest)** (раздел Assets).
+**[последнем релизе](https://github.com/garik128/skin.arctic.zephyr.2.resurrection.k9/releases/latest)** (раздел Assets): номер в начале имени - порядок, `2-skin-Kodi22` - основной выпуск, `3-skin-Kodi21-legacy` - для Kodi 21.
 
-**Одним zip (проще всего).** Скачать `service.resurrection.k9.setup-*.zip`, «Дополнения →
+**Одним zip (проще всего).** Скачать `1-INSTALL-Kodi22-or-21-*.zip`, «Дополнения →
 Установить из zip» (если Kodi спросит - разрешить «Неизвестные источники»). Через несколько
 секунд Kodi сам спросит, ставить ли скин, подтянет все зависимости и предложит на него
 переключиться - оба раза ответить «Да» (на «Оставить эту обложку?» Kodi ждёт 10 секунд и без
 ответа возвращает прежний скин). Установщик подключает наш репозиторий, так что
 обновления приходят сами; сработав, он выключается.
 
-**Через репозиторий.** Поставить из zip `repository.resurrection.k9-*.zip`, затем
+**Через репозиторий.** Поставить из zip `4-repository-*.zip`, затем
 «Установить из репозитория → Resurrection K9 repository → Внешний вид → Скин →
 Arctic: Zephyr 2 - Resurrection K9». Репозиторий смотрит и в репозиторий DenDyGH: оттуда
 приходит нужный скину `script.skinhelper` (его нет в официальном репозитории Kodi), а в
@@ -136,8 +136,8 @@ The main release is for Kodi 22 (based on Resurrection 1.1.12, Skin Shortcuts 3)
 gets the frozen legacy release 1.0.36.k9.x from the same repository (sources: branch `kodi21`).
 
 Install: from the latest release (https://github.com/garik128/skin.arctic.zephyr.2.resurrection.k9/releases/latest) get
-`service.resurrection.k9.setup-*.zip` and install it from zip - it adds the repository and
+`1-INSTALL-Kodi22-or-21-*.zip` and install it from zip - it adds the repository and
 installs the skin with all dependencies (answer "Yes" twice). Or install
-`repository.resurrection.k9-*.zip` and the skin from that repository.
+`4-repository-*.zip` and the skin from that repository.
 License: CC BY-NC-SA 4.0 (skin), MIT (services). Credits: jurialmunkey, pkscout, heppen,
 DenDyGH; K9 edition - garik128 with Claude (Anthropic).
