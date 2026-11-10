@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.movieaudio" name="Resurrection K9: library totals" version="1.4.0" provider-name="garik128">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.service" library="service.py"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Keeps the Movies Atmos/DTS-X widget in sync with the library</summary>
+    <summary lang="ru_RU">Пересчитывает виджет Movies Atmos/DTS-X после изменений медиатеки</summary>
+    <description lang="ru_RU">Виджет фильмов, у которых первая дорожка Dolby Atmos или DTS:X, - не фильтр, а посчитанный список имён файлов: правилом смарт-плейлиста позицию дорожки не выразить. Сервис пересчитывает этот список после каждого сканирования и удаления, а на стоковой приставке берёт его у эталона раз в десять минут. Ставится через ./bin/coreelec-kodi.sh movie-audio --apply.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+  </extension>
+</addon>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="service.mediainfo.filesize"
+       name="Resurrection K9: media info"
+       version="1.9.0"
+       provider-name="garik128">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <extension point="xbmc.service" library="service.py"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">File size and bitrate of the focused list item as skin properties</summary>
+        <summary lang="ru">Размер файла и битрейт выделенного элемента как свойства для скина</summary>
+        <description lang="en">Kodi does not store file size or bitrate in the video library, so library lists cannot show them. This service stats the file of the focused list item (results are cached on disk) and exposes Window(Home).Property(MediaInfo.Size) and Window(Home).Property(MediaInfo.Bitrate) for the skin.</description>
+        <description lang="ru">Kodi не хранит размер файла и битрейт в видеобиблиотеке, поэтому в списках их не видно. Сервис получает размер файла выделенного элемента (с кэшированием на диск) и отдаёт скину Window(Home).Property(MediaInfo.Size) и Window(Home).Property(MediaInfo.Bitrate).</description>
+        <platform>all</platform>
+        <license>MIT</license>
+    </extension>
+</addon>

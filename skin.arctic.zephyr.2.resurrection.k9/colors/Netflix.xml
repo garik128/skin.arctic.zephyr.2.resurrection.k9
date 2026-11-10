@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<colors>
+    <!-- Netflix-style theme: deep charcoal background (#141414) + Netflix red accent (#E50914) -->
+
+    <!-- Main -->
+    <color name="main_fg_100">ffe5e5e5</color>
+    <color name="main_fg_90">e7e5e5e5</color>
+    <color name="main_fg_70">b3e5e5e5</color>
+    <color name="main_fg_30">4de5e5e5</color>
+    <color name="main_fg_12">1fe5e5e5</color>
+
+    <color name="main_bg_100">ff141414</color>
+    <color name="main_bg_90">e7141414</color>
+    <color name="main_bg_70">b3141414</color>
+    <color name="main_bg_30">4d141414</color>
+    <color name="main_bg_12">1f141414</color>
+
+    <!-- Dialogs -->
+    <color name="dialog_fg_100">ffe5e5e5</color>
+    <color name="dialog_fg_90">e7e5e5e5</color>
+    <color name="dialog_fg_70">b3e5e5e5</color>
+    <color name="dialog_fg_30">4de5e5e5</color>
+    <color name="dialog_fg_12">1fe5e5e5</color>
+
+    <color name="dialog_bg_100">ff141414</color>
+    <color name="dialog_bg_90">e7000000</color>
+    <color name="dialog_bg_70">b3141414</color>
+    <color name="dialog_bg_30">4d141414</color>
+    <color name="dialog_bg_12">1f141414</color>
+
+    <color name="dialog_overlay">e6000000</color>
+
+    <!-- Panels -->
+    <color name="panel_bg">d9000000</color>
+
+    <!-- Background -->
+    <color name="Background">ff000000</color>
+    <color name="HomePanel">e7000000</color>
+
+    <!-- Backing Panels and Furniture -->
+    <color name="PosterBack">ff2b2b2b</color>
+    <color name="AltPosterBack">1fe5e5e5</color>
+
+    <!-- Highlight / accent (Netflix red) -->
+    <color name="Highlight">ffe50914</color>
+    <color name="Gradient">ffb20710</color>
+    <color name="Selected">ffffffff</color>
+</colors>
