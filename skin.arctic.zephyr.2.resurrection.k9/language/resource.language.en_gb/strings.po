@@ -2420,7 +2420,7 @@ msgid "Logos at start: here, above. Resolution and HDR as text: \"Show codecs as
 msgstr ""
 
 msgctxt "#31845"
-msgid "Our buttons in video OSD"
+msgid "Audio track button in video OSD"
 msgstr ""
 
 msgctxt "#31846"
@@ -2467,3 +2467,7 @@ msgctxt "#31856"
 msgid "Movies Atmos/DTS:X"
 msgstr ""
 
+#: /1080i/SkinSettings.xml
+msgctxt "#31857"
+msgid "Playback info button in video OSD"
+msgstr ""

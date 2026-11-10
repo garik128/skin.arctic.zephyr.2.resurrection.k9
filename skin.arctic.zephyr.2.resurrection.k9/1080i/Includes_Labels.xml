@@ -133,9 +133,14 @@
         <value condition="!String.IsEmpty(Skin.String(K9.StartSeconds))">$INFO[Skin.String(K9.StartSeconds)] $LOCALIZE[31834]</value>
         <value>8 $LOCALIZE[31834]</value>
     </variable>
-    <variable name="Label_K9_OSDButtons">
-        <value condition="String.IsEqual(Skin.String(K9.OSDButtons),end)">$LOCALIZE[31847]</value>
-        <value condition="String.IsEqual(Skin.String(K9.OSDButtons),off)">$LOCALIZE[31848]</value>
+    <variable name="Label_K9_OSDAudioButton">
+        <value condition="String.IsEqual(Skin.String(K9.OSDAudioButton),end)">$LOCALIZE[31847]</value>
+        <value condition="String.IsEqual(Skin.String(K9.OSDAudioButton),off)">$LOCALIZE[31848]</value>
+        <value>$LOCALIZE[31846]</value>
+    </variable>
+    <variable name="Label_K9_OSDInfoButton">
+        <value condition="String.IsEqual(Skin.String(K9.OSDInfoButton),end)">$LOCALIZE[31847]</value>
+        <value condition="String.IsEqual(Skin.String(K9.OSDInfoButton),off)">$LOCALIZE[31848]</value>
         <value>$LOCALIZE[31846]</value>
     </variable>
     <variable name="Label_K9_PPIKey">

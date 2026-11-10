@@ -1413,13 +1413,21 @@
                             <onclick condition="String.IsEqual(Skin.String(K9.StartSeconds),12)">Skin.SetString(K9.StartSeconds,5)</onclick>
                             <onclick condition="String.IsEqual(Skin.String(K9.StartSeconds),5)">Skin.Reset(K9.StartSeconds)</onclick>
                         </control>
-                        <control type="button" id="18519" description="our OSD buttons">
+                        <control type="button" id="18519" description="OSD audio track button">
                             <include>Defs_Settings_Button</include>
                             <label>$LOCALIZE[31845]</label>
-                            <label2>$VAR[Label_K9_OSDButtons]</label2>
-                            <onclick condition="String.IsEmpty(Skin.String(K9.OSDButtons))">Skin.SetString(K9.OSDButtons,end)</onclick>
-                            <onclick condition="String.IsEqual(Skin.String(K9.OSDButtons),end)">Skin.SetString(K9.OSDButtons,off)</onclick>
-                            <onclick condition="String.IsEqual(Skin.String(K9.OSDButtons),off)">Skin.Reset(K9.OSDButtons)</onclick>
+                            <label2>$VAR[Label_K9_OSDAudioButton]</label2>
+                            <onclick condition="String.IsEmpty(Skin.String(K9.OSDAudioButton))">Skin.SetString(K9.OSDAudioButton,end)</onclick>
+                            <onclick condition="String.IsEqual(Skin.String(K9.OSDAudioButton),end)">Skin.SetString(K9.OSDAudioButton,off)</onclick>
+                            <onclick condition="String.IsEqual(Skin.String(K9.OSDAudioButton),off)">Skin.Reset(K9.OSDAudioButton)</onclick>
+                        </control>
+                        <control type="button" id="18521" description="OSD playback info button">
+                            <include>Defs_Settings_Button</include>
+                            <label>$LOCALIZE[31857]</label>
+                            <label2>$VAR[Label_K9_OSDInfoButton]</label2>
+                            <onclick condition="String.IsEmpty(Skin.String(K9.OSDInfoButton))">Skin.SetString(K9.OSDInfoButton,end)</onclick>
+                            <onclick condition="String.IsEqual(Skin.String(K9.OSDInfoButton),end)">Skin.SetString(K9.OSDInfoButton,off)</onclick>
+                            <onclick condition="String.IsEqual(Skin.String(K9.OSDInfoButton),off)">Skin.Reset(K9.OSDInfoButton)</onclick>
                         </control>
                         <control type="button" id="18515" description="playback info remote key">
                             <include>Defs_Settings_Button</include>

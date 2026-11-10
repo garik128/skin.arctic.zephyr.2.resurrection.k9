@@ -5,7 +5,7 @@
     <onload condition="Player.PauseEnabled + !Skin.HasSetting(HidePlayPauseButton)">SetFocus(14)</onload>
     <onload condition="Player.PauseEnabled + [Skin.HasSetting(HidePlayPauseButton) + !Skin.HasSetting(HideStopButton)]">SetFocus(15)</onload>
     <onload condition="Player.PauseEnabled + [Skin.HasSetting(HidePlayPauseButton) + Skin.HasSetting(HideStopButton)]">SetFocus(18)</onload>
-    <onload condition="!VideoPlayer.Content(LiveTV) + !VideoPlayer.Content(musicvideos) + Integer.IsGreater(VideoPlayer.AudioStreamCount,1) + String.IsEmpty(Skin.String(K9.OSDButtons))">SetFocus(10019)</onload>
+    <onload condition="!VideoPlayer.Content(LiveTV) + !VideoPlayer.Content(musicvideos) + Integer.IsGreater(VideoPlayer.AudioStreamCount,1) + String.IsEmpty(Skin.String(K9.OSDAudioButton))">SetFocus(10019)</onload>
     <onunload>ClearProperty(OSDInfo,Home)</onunload>
     <onunload>CancelAlarm(osd_timeout,true)</onunload>
     <controls>

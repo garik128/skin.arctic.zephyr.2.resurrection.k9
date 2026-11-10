@@ -1187,7 +1187,7 @@
             <onclick condition="Skin.HasSetting(OSD.DisablePopUpDialogs)">ActivateWindow(osdaudiosettings)</onclick>
             <include>OSD_Button_OnFocus</include>
             <visible>Window.IsVisible(videoosd)</visible>
-            <visible>String.IsEmpty(Skin.String(K9.OSDButtons))</visible>
+            <visible>String.IsEmpty(Skin.String(K9.OSDAudioButton))</visible>
             <visible>!VideoPlayer.Content(LiveTV)</visible>
             <visible>!VideoPlayer.Content(musicvideos)</visible>
             <visible>Integer.IsGreater(VideoPlayer.AudioStreamCount,1)</visible>
@@ -1207,7 +1207,7 @@
             <onclick>ActivateWindow(playerprocessinfo)</onclick>
             <visible>!Skin.HasSetting(HidePlayerInfoButton)</visible>
             <visible>Window.IsVisible(videoosd)</visible>
-            <visible>String.IsEmpty(Skin.String(K9.OSDButtons))</visible>
+            <visible>String.IsEmpty(Skin.String(K9.OSDInfoButton))</visible>
             <visible>!VideoPlayer.Content(LiveTV)</visible>
         </control>
 
@@ -1554,7 +1554,7 @@
             <onclick>RunScript(script.cu.lrclyrics)</onclick>
         </control>
 
-        <!-- наши кнопки в конце ряда - настройка «Наши кнопки в OSD» (K9.OSDButtons=end,
+        <!-- наши кнопки в конце ряда - настройки «Кнопка дорожек / информации о воспроизведении в OSD» (K9.OSDAudioButton / K9.OSDInfoButton = end,
              CHANGES.md, п. 33); копии кнопок дорожек (10019) и информации о воспроизведении (414) -->
         <control type="button" id="10039">
             <centertop>50%</centertop>
@@ -1575,7 +1575,7 @@
             <onclick condition="Skin.HasSetting(OSD.DisablePopUpDialogs)">ActivateWindow(osdaudiosettings)</onclick>
             <include>OSD_Button_OnFocus</include>
             <visible>Window.IsVisible(videoosd)</visible>
-            <visible>String.IsEqual(Skin.String(K9.OSDButtons),end)</visible>
+            <visible>String.IsEqual(Skin.String(K9.OSDAudioButton),end)</visible>
             <visible>!VideoPlayer.Content(LiveTV)</visible>
             <visible>!VideoPlayer.Content(musicvideos)</visible>
             <visible>Integer.IsGreater(VideoPlayer.AudioStreamCount,1)</visible>
@@ -1593,7 +1593,7 @@
             <onclick>ActivateWindow(playerprocessinfo)</onclick>
             <visible>!Skin.HasSetting(HidePlayerInfoButton)</visible>
             <visible>Window.IsVisible(videoosd)</visible>
-            <visible>String.IsEqual(Skin.String(K9.OSDButtons),end)</visible>
+            <visible>String.IsEqual(Skin.String(K9.OSDInfoButton),end)</visible>
             <visible>!VideoPlayer.Content(LiveTV)</visible>
         </control>
     </include>

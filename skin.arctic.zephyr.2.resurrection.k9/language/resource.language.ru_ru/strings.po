@@ -1992,8 +1992,8 @@ msgid "Logos at start: here, above. Resolution and HDR as text: \"Show codecs as
 msgstr "Положение логотипов на старте - выше. Разрешение и HDR текстом - «Кодеки текстом»."
 
 msgctxt "#31845"
-msgid "Our buttons in video OSD"
-msgstr "Наши кнопки в OSD видео"
+msgid "Audio track button in video OSD"
+msgstr "Кнопка дорожек в OSD видео"
 
 msgctxt "#31846"
 msgid "At the start"
@@ -2038,3 +2038,8 @@ msgstr "Выключены"
 msgctxt "#31856"
 msgid "Movies Atmos/DTS:X"
 msgstr "Фильмы Atmos/DTS:X"
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31857"
+msgid "Playback info button in video OSD"
+msgstr "Кнопка информации о воспроизведении в OSD видео"

@@ -291,19 +291,19 @@
             <property name="widgetTarget">videos</property>
             <property name="widgetSource">addon</property>
         </item>
-        <item name="new-episodes">
-            <label>$LOCALIZE[31214]</label>
-            <icon>special://skin/extras/icons/recentlyadded.png</icon>
-            <property name="widgetPath">special://skin/extras/playlists/NewEpisodes.xsp</property>
-            <property name="widgetType">episodes</property>
-            <property name="widgetTarget">videos</property>
-            <property name="widgetSource">playlist</property>
-        </item>
         <item name="new-tvshows">
             <label>$LOCALIZE[31367]</label>
             <icon>special://skin/extras/icons/tv.png</icon>
             <property name="widgetPath">special://skin/extras/playlists/NewShows.xsp</property>
             <property name="widgetType">tvshows</property>
+            <property name="widgetTarget">videos</property>
+            <property name="widgetSource">playlist</property>
+        </item>
+        <item name="new-episodes">
+            <label>$LOCALIZE[31214]</label>
+            <icon>special://skin/extras/icons/recentlyadded.png</icon>
+            <property name="widgetPath">special://skin/extras/playlists/NewEpisodes.xsp</property>
+            <property name="widgetType">episodes</property>
             <property name="widgetTarget">videos</property>
             <property name="widgetSource">playlist</property>
         </item>
