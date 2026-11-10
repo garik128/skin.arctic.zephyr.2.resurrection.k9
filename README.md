@@ -14,12 +14,10 @@ Skin Shortcuts 3. Для **Kodi 21 (Omega)** остаётся прежний в�
 
 ## Скриншоты
 
-Kinhank K9, Kodi FEL, фильм с Dolby Vision профиля 7 FEL. На кадрах воспроизведения видео
+Kinhank K9, Kodi FEL, фильм с Dolby Vision профиля 7 FEL. Под панелью информации видео
 чёрное: слой видео при Dolby Vision в снимок экрана не попадает, только интерфейс.
 
 ![Главный экран](screenshots/01-home.jpg)
-
-![Сведения на старте воспроизведения](screenshots/02-start.jpg)
 
 ![Панель информации о воспроизведении](screenshots/03-playback-info.jpg)
 
