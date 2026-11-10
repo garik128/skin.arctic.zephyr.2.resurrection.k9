@@ -2623,7 +2623,7 @@ msgstr ""
 
 #: /1080i/SkinSettings.xml 
 msgctxt "#31545"
-msgid "Our buttons in video OSD"
+msgid "Audio track button in video OSD"
 msgstr ""
 
 #: /1080i/SkinSettings.xml 
@@ -2649,4 +2649,9 @@ msgstr ""
 #: /shortcuts/movies-1.DATA.xml
 msgctxt "#31550"
 msgid "Movies 1080p"
+msgstr ""
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31551"
+msgid "Playback info button in video OSD"
 msgstr ""

@@ -21,7 +21,9 @@
     <onload condition="!Skin.HasSetting(SkinInit)">Skin.SetBool(ShowDate)</onload>
     <onload condition="!Skin.HasSetting(SkinInit)">Skin.SetBool(HomeMulti)</onload>
     <onload condition="!Skin.HasSetting(SkinInit)">Skin.SetString(Icons,colorful)</onload>
-    <onload condition="!Skin.HasSetting(SkinInit)">RunScript(script.skinhelper,gradient=true,highlight=$VAR[ColorHighlight],gradient=$VAR[ColorGradient])</onload>
+    <!-- цвета явно: $VAR здесь раскрывается раньше, чем применятся Skin.SetString выше, и картинка
+         фокуса выходила синей по умолчанию (CHANGES.md, п. 41) -->
+    <onload condition="!Skin.HasSetting(SkinInit)">RunScript(script.skinhelper,gradient=true,highlight=ffe50914,gradient=ffb20710)</onload>
     <onload condition="!Skin.HasSetting(SkinInit)">Skin.SetString(PosterHighlight,Mix)</onload>
     <onload condition="!Skin.HasSetting(SkinInit)">Skin.SetBool(SkinInit)</onload>
 

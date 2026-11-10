@@ -2624,8 +2624,8 @@ msgstr "Положение логотипов на старте - в настр�
 
 #: /1080i/SkinSettings.xml 
 msgctxt "#31545"
-msgid "Our buttons in video OSD"
-msgstr "Наши кнопки в OSD видео"
+msgid "Audio track button in video OSD"
+msgstr "Кнопка дорожек в OSD видео"
 
 #: /1080i/SkinSettings.xml 
 msgctxt "#31546"
@@ -2651,3 +2651,8 @@ msgstr "Фильмы 4K"
 msgctxt "#31550"
 msgid "Movies 1080p"
 msgstr "Фильмы 1080p"
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31551"
+msgid "Playback info button in video OSD"
+msgstr "Кнопка информации о воспроизведении в OSD видео"
