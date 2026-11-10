@@ -107,7 +107,10 @@ def read(path):
 
 
 def info(label):
-    return xbmc.getInfoLabel(label).strip()
+    """Инфолейбл Kodi. Незнакомый (VideoPlayer.HdrDetail появился только в Kodi 22)
+    Kodi возвращает своим же именем - это пусто, а не значение."""
+    value = xbmc.getInfoLabel(label).strip()
+    return '' if value == label else value
 
 
 def number(label):
@@ -368,12 +371,17 @@ class PlayerPanel(threading.Thread):
             cll = 'MaxCLL %s · MaxFALL %s' % tuple(nits(v) for v in meta['cll'])
         if hdr == 'dolbyvision':
             r['DvTitle'] = 'DOLBY VISION'
-            r['DvInfo'] = dot(profile and 'профиль %s' % profile, module if module != 'не загружен' else '')
+            # профиль Kodi отдаёт с 22-й версии; без него о слое EL сказать нечего, а
+            # модуль сборки FEL - не про этот Kodi (сборка FEL основана на Kodi 22)
+            r['DvInfo'] = (dot('профиль %s' % profile, module if module != 'не загружен' else '')
+                           if profile else 'профиль: Kodi этой версии не сообщает')
             r['L1Tag'], r['L1Style'] = 'RPU', 'dashed'
             r['L1Text'] = dot('метаданные', mdl, cll)
             p7 = profile.startswith('7')
-            r['L2Tag'] = 'EL'
-            if layer.startswith('FEL'):
+            r['L2Tag'] = 'EL' if profile else ''
+            if not profile:
+                pass
+            elif layer.startswith('FEL'):
                 r['L2Style'] = 'solid'
                 r['L2Text'] = dot('[B]FEL[/B]', 'полный слой улучшения', layer.split(', ', 1)[-1])
             elif layer.startswith('MEL'):
@@ -421,6 +429,13 @@ class PlayerPanel(threading.Thread):
             pad = HISTORY - len(self.history)
             for i, v in enumerate(self.history):
                 r['Bar.%d' % (pad + i)] = '%02d' % max(1, round(LEVELS * v / top))
+        elif kbps:
+            # живого битрейта нет (Kodi 21: Player.Process(videolivebitrate) - с 22-й) -
+            # крупно средний по файлу, без графика
+            r['Rate'] = '%.1f' % (kbps / 1000.0)
+            r['RateUnit'] = 'Мбит/с'
+            r['RateSub'] = 'в среднем по файлу'
+            kbps = 0   # в нижней строке не повторять
         path = info('Player.Filenameandpath')
         r['StreamInfo'] = dot(container_of(path), os.path.basename(path.rstrip('/')))
         r['StreamFoot'] = dot(size and 'файл %.1f GB' % (size / 1024.0 ** 3),

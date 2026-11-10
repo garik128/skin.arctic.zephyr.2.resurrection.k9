@@ -180,16 +180,26 @@ def dv_card(indent, icons):
     i = indent + 4
     body = [text(i, 28, 18, 300, 30, "$INFO[%s]" % (P % "DvTitle"), "k9_cap", "dialog_fg_70"),
             text(i, 240, 18, DV_W - 268, 30, "$INFO[%s]" % (P % "DvInfo"), "k9_sub", "8CFFFFFF")]
-    for n, top in enumerate((66, 120, 174), 1):
+    # строки слоёв - списком: пустая (EL без профиля на Kodi 21) прячется, следующая
+    # поднимается (п. 37)
+    body.append("\n".join([
+        " " * i + '<control type="grouplist">',
+        " " * i + '    <top>66</top>',
+        " " * i + '    <width>%d</width>' % DV_W,
+        " " * i + '    <height>162</height>',
+        " " * i + '    <orientation>vertical</orientation>',
+        " " * i + '    <itemgap>10</itemgap>']))
+    for n in (1, 2, 3):
         tag, style, line = (P % ("L%d%s" % (n, x)) for x in ("Tag", "Style", "Text"))
         body.append("\n".join([
-            " " * i + '<control type="group">',
-            " " * i + '    <top>%d</top>' % top,
-            " " * i + '    <visible>!String.IsEmpty(%s)</visible>' % tag,
-            image(i + 4, 28, 15, 124, 14, "k9ppi/layer_$INFO[%s].png" % style),
-            text(i + 4, 172, 0, 70, 44, "$INFO[%s]" % tag, "k9_val", "dialog_fg_100"),
-            text(i + 4, 250, 0, DV_W - 278, 44, "$INFO[%s]" % line, "k9_sub", "dialog_fg_70"),
-            " " * i + '</control>']))
+            " " * (i + 4) + '<control type="group">',
+            " " * (i + 4) + '    <height>44</height>',
+            " " * (i + 4) + '    <visible>!String.IsEmpty(%s)</visible>' % tag,
+            image(i + 8, 28, 15, 124, 14, "k9ppi/layer_$INFO[%s].png" % style),
+            text(i + 8, 172, 0, 70, 44, "$INFO[%s]" % tag, "k9_val", "dialog_fg_100"),
+            text(i + 8, 250, 0, DV_W - 278, 44, "$INFO[%s]" % line, "k9_sub", "dialog_fg_70"),
+            " " * (i + 4) + '</control>']))
+    body.append(" " * i + '</control>')
     return card(indent, 40, ROW2, DV_W, ROW2_H, body)
 
 

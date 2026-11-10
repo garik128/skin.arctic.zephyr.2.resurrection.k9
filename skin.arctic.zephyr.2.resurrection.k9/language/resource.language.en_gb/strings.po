@@ -2640,3 +2640,13 @@ msgstr ""
 msgctxt "#31548"
 msgid "Hidden"
 msgstr ""
+
+#: /shortcuts/movies-1.DATA.xml
+msgctxt "#31549"
+msgid "Movies 4K"
+msgstr ""
+
+#: /shortcuts/movies-1.DATA.xml
+msgctxt "#31550"
+msgid "Movies 1080p"
+msgstr ""

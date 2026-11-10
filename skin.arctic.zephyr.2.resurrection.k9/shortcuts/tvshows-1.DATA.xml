@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- виджеты «Сериалов» по умолчанию (выпуск K9, CHANGES.md, п. 37) -->
+<shortcuts>
+    <shortcut>
+        <defaultID>nextup</defaultID>
+        <label>$LOCALIZE[31136]</label>
+        <label2>32014</label2>
+        <icon>special://skin/extras/icons/timer.png</icon>
+        <thumb />
+        <action>plugin://script.embuary.helper/?info=getnextup&amp;reload=$INFO[Window(Home).Property(EmbuaryWidgetUpdate)]</action>
+    </shortcut>
+    <shortcut>
+        <defaultID>31214</defaultID>
+        <label>$LOCALIZE[31214]</label>
+        <label2>32014</label2>
+        <icon>special://skin/extras/icons/recentlyadded.png</icon>
+        <thumb />
+        <action>special://skin/extras/playlists/NewEpisodes.xsp</action>
+    </shortcut>
+    <shortcut>
+        <defaultID>31367</defaultID>
+        <label>$LOCALIZE[31367]</label>
+        <label2>32014</label2>
+        <icon>special://skin/extras/icons/tv.png</icon>
+        <thumb />
+        <action>special://skin/extras/playlists/NewShows.xsp</action>
+    </shortcut>
+</shortcuts>

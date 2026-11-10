@@ -1751,97 +1751,104 @@
                     <font>k9_sub</font>
                     <textcolor>8CFFFFFF</textcolor>
                 </control>
-                <control type="group">
+                <control type="grouplist">
                     <top>66</top>
-                    <visible>!String.IsEmpty(Window(Home).Property(K9Info.L1Tag))</visible>
-                    <control type="image">
-                        <left>28</left>
-                        <top>15</top>
-                        <width>124</width>
-                        <height>14</height>
-                        <texture>k9ppi/layer_$INFO[Window(Home).Property(K9Info.L1Style)].png</texture>
-                    </control>
-                    <control type="label">
-                        <left>172</left>
-                        <top>0</top>
-                        <width>70</width>
+                    <width>980</width>
+                    <height>162</height>
+                    <orientation>vertical</orientation>
+                    <itemgap>10</itemgap>
+                    <control type="group">
                         <height>44</height>
-                        <aligny>center</aligny>
-                        <label>$INFO[Window(Home).Property(K9Info.L1Tag)]</label>
-                        <font>k9_val</font>
-                        <textcolor>dialog_fg_100</textcolor>
+                        <visible>!String.IsEmpty(Window(Home).Property(K9Info.L1Tag))</visible>
+                        <control type="image">
+                            <left>28</left>
+                            <top>15</top>
+                            <width>124</width>
+                            <height>14</height>
+                            <texture>k9ppi/layer_$INFO[Window(Home).Property(K9Info.L1Style)].png</texture>
+                        </control>
+                        <control type="label">
+                            <left>172</left>
+                            <top>0</top>
+                            <width>70</width>
+                            <height>44</height>
+                            <aligny>center</aligny>
+                            <label>$INFO[Window(Home).Property(K9Info.L1Tag)]</label>
+                            <font>k9_val</font>
+                            <textcolor>dialog_fg_100</textcolor>
+                        </control>
+                        <control type="label">
+                            <left>250</left>
+                            <top>0</top>
+                            <width>702</width>
+                            <height>44</height>
+                            <aligny>center</aligny>
+                            <label>$INFO[Window(Home).Property(K9Info.L1Text)]</label>
+                            <font>k9_sub</font>
+                            <textcolor>dialog_fg_70</textcolor>
+                        </control>
                     </control>
-                    <control type="label">
-                        <left>250</left>
-                        <top>0</top>
-                        <width>702</width>
+                    <control type="group">
                         <height>44</height>
-                        <aligny>center</aligny>
-                        <label>$INFO[Window(Home).Property(K9Info.L1Text)]</label>
-                        <font>k9_sub</font>
-                        <textcolor>dialog_fg_70</textcolor>
+                        <visible>!String.IsEmpty(Window(Home).Property(K9Info.L2Tag))</visible>
+                        <control type="image">
+                            <left>28</left>
+                            <top>15</top>
+                            <width>124</width>
+                            <height>14</height>
+                            <texture>k9ppi/layer_$INFO[Window(Home).Property(K9Info.L2Style)].png</texture>
+                        </control>
+                        <control type="label">
+                            <left>172</left>
+                            <top>0</top>
+                            <width>70</width>
+                            <height>44</height>
+                            <aligny>center</aligny>
+                            <label>$INFO[Window(Home).Property(K9Info.L2Tag)]</label>
+                            <font>k9_val</font>
+                            <textcolor>dialog_fg_100</textcolor>
+                        </control>
+                        <control type="label">
+                            <left>250</left>
+                            <top>0</top>
+                            <width>702</width>
+                            <height>44</height>
+                            <aligny>center</aligny>
+                            <label>$INFO[Window(Home).Property(K9Info.L2Text)]</label>
+                            <font>k9_sub</font>
+                            <textcolor>dialog_fg_70</textcolor>
+                        </control>
                     </control>
-                </control>
-                <control type="group">
-                    <top>120</top>
-                    <visible>!String.IsEmpty(Window(Home).Property(K9Info.L2Tag))</visible>
-                    <control type="image">
-                        <left>28</left>
-                        <top>15</top>
-                        <width>124</width>
-                        <height>14</height>
-                        <texture>k9ppi/layer_$INFO[Window(Home).Property(K9Info.L2Style)].png</texture>
-                    </control>
-                    <control type="label">
-                        <left>172</left>
-                        <top>0</top>
-                        <width>70</width>
+                    <control type="group">
                         <height>44</height>
-                        <aligny>center</aligny>
-                        <label>$INFO[Window(Home).Property(K9Info.L2Tag)]</label>
-                        <font>k9_val</font>
-                        <textcolor>dialog_fg_100</textcolor>
-                    </control>
-                    <control type="label">
-                        <left>250</left>
-                        <top>0</top>
-                        <width>702</width>
-                        <height>44</height>
-                        <aligny>center</aligny>
-                        <label>$INFO[Window(Home).Property(K9Info.L2Text)]</label>
-                        <font>k9_sub</font>
-                        <textcolor>dialog_fg_70</textcolor>
-                    </control>
-                </control>
-                <control type="group">
-                    <top>174</top>
-                    <visible>!String.IsEmpty(Window(Home).Property(K9Info.L3Tag))</visible>
-                    <control type="image">
-                        <left>28</left>
-                        <top>15</top>
-                        <width>124</width>
-                        <height>14</height>
-                        <texture>k9ppi/layer_$INFO[Window(Home).Property(K9Info.L3Style)].png</texture>
-                    </control>
-                    <control type="label">
-                        <left>172</left>
-                        <top>0</top>
-                        <width>70</width>
-                        <height>44</height>
-                        <aligny>center</aligny>
-                        <label>$INFO[Window(Home).Property(K9Info.L3Tag)]</label>
-                        <font>k9_val</font>
-                        <textcolor>dialog_fg_100</textcolor>
-                    </control>
-                    <control type="label">
-                        <left>250</left>
-                        <top>0</top>
-                        <width>702</width>
-                        <height>44</height>
-                        <aligny>center</aligny>
-                        <label>$INFO[Window(Home).Property(K9Info.L3Text)]</label>
-                        <font>k9_sub</font>
-                        <textcolor>dialog_fg_70</textcolor>
+                        <visible>!String.IsEmpty(Window(Home).Property(K9Info.L3Tag))</visible>
+                        <control type="image">
+                            <left>28</left>
+                            <top>15</top>
+                            <width>124</width>
+                            <height>14</height>
+                            <texture>k9ppi/layer_$INFO[Window(Home).Property(K9Info.L3Style)].png</texture>
+                        </control>
+                        <control type="label">
+                            <left>172</left>
+                            <top>0</top>
+                            <width>70</width>
+                            <height>44</height>
+                            <aligny>center</aligny>
+                            <label>$INFO[Window(Home).Property(K9Info.L3Tag)]</label>
+                            <font>k9_val</font>
+                            <textcolor>dialog_fg_100</textcolor>
+                        </control>
+                        <control type="label">
+                            <left>250</left>
+                            <top>0</top>
+                            <width>702</width>
+                            <height>44</height>
+                            <aligny>center</aligny>
+                            <label>$INFO[Window(Home).Property(K9Info.L3Text)]</label>
+                            <font>k9_sub</font>
+                            <textcolor>dialog_fg_70</textcolor>
+                        </control>
                     </control>
                 </control>
             </control>

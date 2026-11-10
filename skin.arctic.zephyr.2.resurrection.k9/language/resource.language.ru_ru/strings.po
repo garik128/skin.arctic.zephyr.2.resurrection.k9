@@ -2641,3 +2641,13 @@ msgstr "В конце"
 msgctxt "#31548"
 msgid "Hidden"
 msgstr "Скрыты"
+
+#: /shortcuts/movies-1.DATA.xml
+msgctxt "#31549"
+msgid "Movies 4K"
+msgstr "Фильмы 4K"
+
+#: /shortcuts/movies-1.DATA.xml
+msgctxt "#31550"
+msgid "Movies 1080p"
+msgstr "Фильмы 1080p"

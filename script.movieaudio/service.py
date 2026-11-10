@@ -187,6 +187,28 @@ def update_widget_totals():
                                    for k in sorted(seen)))
 
 
+# Смарт-плейлисты виджетов «Фильмы 4K» и «Фильмы 1080p» (меню скина по умолчанию,
+# CHANGES.md скина, п. 37). Тот же текст пишет tools/kodi-movie-quality.py;
+# здесь - только если файла нет, свои правки пользователя не трогаем. Имя «Movies 4K»
+# не переводить: на него по имени ссылается правило плейлиста 1080p.
+PLAYLISTS = {'Movies4K.xsp': '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>\n<smartplaylist type="movies">\n    <name>Movies 4K</name>\n    <match>all</match>\n    <rule field="videoresolution" operator="greaterthan">\n        <value>1080</value>\n    </rule>\n    <order direction="descending">dateadded</order>\n</smartplaylist>\n', 'Movies1080p.xsp': '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>\n<smartplaylist type="movies">\n    <name>Movies 1080p</name>\n    <match>all</match>\n    <rule field="videoresolution" operator="is">\n        <value>1080</value>\n    </rule>\n    <rule field="playlist" operator="isnot">\n        <value>Movies 4K</value>\n    </rule>\n    <order direction="descending">dateadded</order>\n</smartplaylist>\n'}
+
+
+def ensure_playlists():
+    folder = xbmcvfs.translatePath("special://profile/playlists/video/")
+    for name, text in PLAYLISTS.items():
+        path = os.path.join(folder, name)
+        if os.path.exists(path):
+            continue
+        try:
+            os.makedirs(folder, exist_ok=True)
+            with open(path, "w", encoding="utf-8") as fh:
+                fh.write(text)
+            log("плейлист виджета создан: %s" % name)
+        except OSError as err:
+            log("плейлист %s не создан: %s" % (name, err), xbmc.LOGWARNING)
+
+
 def remember(props, drop_prefix=None):
     """Свойства окна Home - в CACHE. drop_prefix: группа, которую props
     заменяет целиком (WidgetTotal. - виджеты могли исчезнуть из меню)."""
@@ -312,6 +334,7 @@ class Watcher(xbmc.Monitor):
 
 def main():
     monitor = Watcher()
+    ensure_playlists()
     publish_cached()
     if monitor.waitForAbort(START_DELAY):
         return
