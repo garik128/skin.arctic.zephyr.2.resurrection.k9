@@ -20,7 +20,7 @@
     <extension point="xbmc.addon.metadata">
         <news></news>
         <summary lang="de">Klar, minimalistisch, elegant, einfach, leicht</summary>
-        <summary lang="en">Clean, minimal, elegant, simple, light. K9 edition: Russian translation, playback info cards, Android TV boxes.</summary>
+        <summary lang="en">Clean, minimal, elegant, simple, light. K9 edition for Kodi 21 (legacy): Russian translation, playback info cards, Android TV boxes.</summary>
         <summary lang="en_AU">Clean, minimal, elegant, simple, light.</summary>
         <summary lang="en_US">Clean, minimal, elegant, simple, light.</summary>
         <summary lang="es">Limpio, minimalista, elegante, simple, ligero.</summary>
@@ -33,7 +33,7 @@
         <summary lang="pl">Prosta, minimalistyczna, elegancka i lekka.</summary>
         <summary lang="pt_BR">Limpa, simplista, elegante, leve.</summary>
         <summary lang="ro">Curat, minimalist, elegant, simplu, ușor</summary>
-        <summary lang="ru">Минималистичный скин. Выпуск K9: русский перевод, карточки информации о воспроизведении, Android-боксы.</summary>
+        <summary lang="ru">Минималистичный скин. Выпуск K9 для Kodi 21 (легаси): русский перевод, карточки информации о воспроизведении, Android-боксы.</summary>
 
         <description lang="en">This is a light mod of Arctic Zephyr 2 by heppen. Arctic Zephyr 2 is a minimalistic skin created by jurialmunkey and moded to work with Kodi 19 Matrix by pkscout. The skin is designed to be simple so that the user can focus on their media content. In addition to the default light colour scheme, the skin also includes a number of darker variations. K9 edition: full Russian translation, playback info panel in cards, start-of-playback cards, badges below lists, an Extras section in skin settings. Fork of DenDyGH/skin.arctic.zephyr.2.resurrection.k9.</description>
         <description lang="ru">Форк Arctic Zephyr 2 - Resurrection (DenDyGH). Выпуск K9: полный русский перевод, панель информации о воспроизведении карточками, сведения о дорожке и видео на старте, плашки под списками, раздел «Дополнительно» в настройках скина.</description>

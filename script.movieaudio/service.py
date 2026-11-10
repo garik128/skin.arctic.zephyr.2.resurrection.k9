@@ -37,6 +37,10 @@ WidgetTotal.<заголовок виджета>, скин выводит его 
 грузит не больше widgetLimit (25) элементов. Итог спрашивается у самого
 Kodi (Files.GetDirectory с limits - в ответе limits.total) по путям виджетов
 из меню skinshortcuts; плагины не считаем - это долго и не библиотека.
+Меню берётся из двух мест: *.DATA.xml профиля (skinshortcuts v2, скин легаси под
+Kodi 21) и собранный skinshortcuts файл include скина
+1080i/script-skinshortcuts-includes.xml (v3, скин под Kodi 22: меню там - JSON-дифф к
+файлам скина, а готовые заголовки и пути есть только в собранном include).
 """
 import glob
 import os
@@ -156,9 +160,50 @@ def widget_label(raw):
     return xbmc.getLocalizedString(int(m.group(1))) if m else raw
 
 
+def widget_path_ok(path):
+    return path.startswith(("videodb://", "special://")) or path.endswith(".xsp")
+
+
+BUILT = "special://skin/1080i/script-skinshortcuts-includes.xml"
+
+
+def menu_stamp():
+    """Отпечаток меню: скин и время сборки его include. Меняется при смене скина и
+    пересборке меню (skinshortcuts пишет файл при первом запуске скина и после правки
+    меню) - тогда числа виджетов пересчитываются, не дожидаясь событий медиатеки."""
+    path = xbmcvfs.translatePath(BUILT)
+    try:
+        return "%s %s" % (xbmc.getSkinDir(), os.path.getmtime(path))
+    except OSError:
+        return xbmc.getSkinDir()
+
+
+def built_widgets():
+    """(заголовок, путь) виджетов из собранного skinshortcuts include скина:
+    заголовок - параметр label у View_Cast_Toplabel, путь - content у
+    следующего за ним виджета."""
+    path = xbmcvfs.translatePath(BUILT)
+    try:
+        with open(path, encoding="utf-8") as fh:
+            raw = fh.read()
+    except OSError:
+        return []
+    out = []
+    parts = raw.split('<include content="View_Cast_Toplabel">')
+    for part in parts[1:]:
+        label = re.search(r'<param name="label" value="([^"]*)"', part)
+        content = re.search(r'<param name="content" value="([^"]*)"', part)
+        if label and content:
+            out.append((label.group(1).strip(), content.group(1).replace("&amp;", "&").strip()))
+    return out
+
+
 def update_widget_totals():
     """Window(Home).Property(WidgetTotal.<заголовок>) по виджетам меню."""
     seen = {}
+    for label, action in built_widgets():
+        if widget_path_ok(action) and ("$" not in label or SKIN_LABEL.match(label)):
+            seen[widget_label(label)] = action
     for data in glob.glob(os.path.join(SHORTCUTS, "*.DATA.xml")):
         try:
             with open(data, encoding="utf-8") as fh:
@@ -167,7 +212,7 @@ def update_widget_totals():
             continue
         for label, action in re.findall(r"<label>([^<]*)</label>.*?<action>([^<]*)</action>",
                                         raw, re.S):
-            if action.startswith(("videodb://", "special://")) or action.endswith(".xsp"):
+            if widget_path_ok(action):
                 seen[widget_label(label.strip())] = action.strip()
     home = xbmcgui.Window(10000)
     totals = {}
@@ -340,9 +385,16 @@ def main():
         return
     recount("старт")
     last = time.time()
+    stamp, stamp_seen = menu_stamp(), time.time()
 
     while not monitor.waitForAbort(2):
         now = time.time()
+        if now - stamp_seen >= 10:   # меню скина пересобрано или скин сменился
+            stamp_seen = now
+            new = menu_stamp()
+            if new != stamp:
+                stamp = new
+                update_widget_totals()
         if xbmc.getCondVisibility("Library.IsScanningVideo"):
             continue
         if monitor.pending and now - monitor.pending >= SETTLE:

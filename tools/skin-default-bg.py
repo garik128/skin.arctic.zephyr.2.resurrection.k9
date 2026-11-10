@@ -11,6 +11,11 @@ bg2.jpg скин показывает, когда у элемента нет ф�
     skin-default-bg.py                         показать, что поменяется
     skin-default-bg.py --apply                 записать bg2.jpg в рабочую копию
     skin-default-bg.py --title "..." --sub "..." --apply   другое название
+    skin-default-bg.py --skin <каталог скина> [--apply]     другая копия скина
+
+По умолчанию - основная копия скина под Kodi 22, там фон -
+extras/backgrounds/bg2.jpg; в легаси под Kodi 21 - media/common/bg2.jpg. Куда писать,
+скрипт определяет сам по раскладке скина.
 """
 import argparse
 import os
@@ -18,8 +23,17 @@ import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 SKIN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skin.arctic.zephyr.2.resurrection.k9")
-OUT = os.path.join(SKIN, "media", "common", "bg2.jpg")
-FONT = os.path.join(SKIN, "fonts", "RobotoCondensed-Bold.ttf")
+
+
+def paths(skin):
+    """(bg2.jpg, шрифт): в 1.1.12 фоны - в extras/backgrounds, в 1.0.36 - в media/common."""
+    glob_xml = open(os.path.join(skin, "1080i", "Includes_Global.xml"), encoding="utf-8").read()
+    rel = "extras/backgrounds" if "extras/backgrounds/bg2.jpg" in glob_xml else "media/common"
+    out = os.path.join(skin, rel, "bg2.jpg")
+    return out, os.path.join(skin, "fonts", "RobotoCondensed-Bold.ttf")
+
+
+OUT, FONT = paths(SKIN)
 W, H = 1920, 1080
 ACCENT = (229, 9, 20)       # красный Netflix - focuscolor.name темы
 
@@ -55,8 +69,11 @@ def main():
     ap.add_argument("--title", default="Arctic Zephyr 2")
     ap.add_argument("--accent", default="Zephyr", help="слово названия цветом акцента")
     ap.add_argument("--sub", default="Resurrection")
+    ap.add_argument("--skin", default=SKIN, help="каталог скина")
     ap.add_argument("--apply", action="store_true")
     a = ap.parse_args()
+    global OUT, FONT
+    OUT, FONT = paths(os.path.abspath(os.path.expanduser(a.skin)))
     im = render(a.title, a.accent, a.sub)
     print("%s: %dx%d, «%s» / «%s»" % (OUT, W, H, a.title, a.sub))
     if not a.apply:
