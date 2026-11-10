@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.resurrection.k9" name="Resurrection K9 repository" version="1.0.1" provider-name="garik128">
+    <extension point="xbmc.addon.repository" name="Resurrection K9 repository">
+        <dir>
+            <info compressed="false">https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/addons.xml</info>
+            <checksum>https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/addons.xml.md5</checksum>
+            <datadir zip="true">https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/</datadir>
+        </dir>
+        <dir minversion="20.9.1" maxversion="21.9.0">
+            <info compressed="false">https://raw.githubusercontent.com/DenDyGH/dendygh.github.io/main/omega/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/DenDyGH/dendygh.github.io/main/omega/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/DenDyGH/dendygh.github.io/main/omega/zips/</datadir>
+        </dir>
+        <dir minversion="21.9.1">
+            <info compressed="false">https://raw.githubusercontent.com/DenDyGH/dendygh.github.io/main/piers/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/DenDyGH/dendygh.github.io/main/piers/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/DenDyGH/dendygh.github.io/main/piers/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Arctic: Zephyr 2 - Resurrection K9 skin and its services</summary>
+        <summary lang="ru_RU">Скин Arctic: Zephyr 2 - Resurrection K9 и его сервисы</summary>
+        <platform>all</platform>
+        <license>MIT</license>
+        <source>https://github.com/garik128/skin.arctic.zephyr.2.resurrection.k9</source>
+        <assets><icon>icon.png</icon></assets>
+    </extension>
+</addon>

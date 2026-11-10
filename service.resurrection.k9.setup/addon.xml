@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.resurrection.k9.setup" name="Resurrection K9 - setup" version="1.0.0" provider-name="garik128">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <extension point="xbmc.service" library="service.py"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">One-step install of Arctic: Zephyr 2 - Resurrection K9 with all dependencies</summary>
+        <summary lang="ru_RU">Установка Arctic: Zephyr 2 - Resurrection K9 со всеми зависимостями одним zip</summary>
+        <description lang="en_GB">Adds the Resurrection K9 repository and installs the skin from it; Kodi pulls in all dependencies and offers to switch to the skin. Updates come from the repository. Disables itself afterwards.</description>
+        <description lang="ru_RU">Подключает репозиторий Resurrection K9 и ставит из него скин: Kodi сам подтянет зависимости и предложит переключиться. Обновления приходят из репозитория. Потом выключается сам.</description>
+        <platform>all</platform>
+        <license>MIT</license>
+        <source>https://github.com/garik128/skin.arctic.zephyr.2.resurrection.k9</source>
+        <assets><icon>icon.png</icon></assets>
+    </extension>
+</addon>

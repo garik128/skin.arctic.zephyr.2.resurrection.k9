@@ -33,28 +33,28 @@ Android-боксах, Windows, Linux. Чего на конкретном жел�
 | `script.movieaudio` | сервис: итоги по медиатеке у часов, числа в заголовках виджетов |
 | `tools/` | генераторы разметки панели (`skin-android-ppi.py`) и фона (`skin-default-bg.py`); нужны только тем, кто правит скин |
 | `repository.resurrection.k9` | Kodi-репозиторий (сам репозиторий живёт в ветке `gh-pages`, GitHub Pages) |
+| `service.resurrection.k9.setup` | установка одним zip: подключает репозиторий и ставит скин из него |
 
 ## Установка
 
-Kodi 21 (Omega) или 22.
+Kodi 21 (Omega) или 22. Все файлы - на странице
+**<https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/>**.
 
-1. Скачать `repository.resurrection.k9-*.zip` со страницы
-   **<https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/>** и поставить:
-   «Дополнения → Установить из zip». Если Kodi спросит - разрешить «Неизвестные источники».
-   Репозиторий смотрит и в репозиторий DenDyGH: оттуда приходит нужный скину
-   `script.skinhelper` (его нет в официальном репозитории Kodi), а в списке скинов рядом
-   будет виден и оригинальный Resurrection.
-2. «Дополнения → Установить из репозитория → Resurrection K9 repository → Внешний вид →
-   Скин → Arctic: Zephyr 2 - Resurrection K9 → Установить». Kodi сам поставит наши сервисы и
-   зависимости из официального репозитория (skinshortcuts, skinvariables, TMDb Helper и др.).
-3. Согласиться сменить скин. Язык интерфейса Kodi - русский, и скин тоже будет по-русски.
-4. «Настройки → Интерфейс → Обложка → Настроить обложку → Дополнительно» - что включить и
-   какой кнопкой пульта открывать панель информации (по умолчанию - кнопкой в OSD рядом с
-   кнопкой дорожек).
+**Одним zip (проще всего).** Скачать `service.resurrection.k9.setup-*.zip`, «Дополнения →
+Установить из zip» (если Kodi спросит - разрешить «Неизвестные источники»). Через несколько
+секунд Kodi сам спросит, ставить ли скин, подтянет все зависимости и предложит на него
+переключиться - оба раза ответить «Да». Установщик подключает наш репозиторий, так что
+обновления приходят сами; сработав, он выключается.
 
-Обновления приходят из того же репозитория сами. Без репозитория можно поставить zip из
-раздела Releases по одному: сначала `service.mediainfo.filesize` и `script.movieaudio`,
-потом скин.
+**Через репозиторий.** Поставить из zip `repository.resurrection.k9-*.zip`, затем
+«Установить из репозитория → Resurrection K9 repository → Внешний вид → Скин →
+Arctic: Zephyr 2 - Resurrection K9». Репозиторий смотрит и в репозиторий DenDyGH: оттуда
+приходит нужный скину `script.skinhelper` (его нет в официальном репозитории Kodi), а в
+списке скинов рядом виден и оригинальный Resurrection.
+
+После установки: «Настройки → Интерфейс → Обложка → Настроить обложку → Дополнительно» -
+что включить и какой кнопкой пульта открывать панель информации (по умолчанию - кнопкой в
+OSD рядом с кнопкой дорожек).
 
 ## Советы
 
@@ -109,8 +109,9 @@ lists and an "Extras" section in skin settings to toggle all of it, including a 
 button for the info panel. Built for the Kinhank K9 with Kodi FEL, works on any Kodi:
 hardware-specific parts (HDMI output, temperatures, FEL) are hidden where unavailable.
 
-Install: get `repository.resurrection.k9-*.zip` from
-https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/ , install it from zip, then
-install the skin from that repository - Kodi pulls in all dependencies.
+Install: from https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/ get
+`service.resurrection.k9.setup-*.zip` and install it from zip - it adds the repository and
+installs the skin with all dependencies (answer "Yes" twice). Or install
+`repository.resurrection.k9-*.zip` and the skin from that repository.
 License: CC BY-NC-SA 4.0 (skin), MIT (services). Credits: jurialmunkey, pkscout, heppen,
 DenDyGH.
