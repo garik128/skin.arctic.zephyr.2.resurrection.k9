@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.arctic.zephyr.2.resurrection.k9" name="Arctic: Zephyr 2 - Resurrection K9" provider-name="jurialmunkey, pkscout, heppen, DenDyGH, garik128" version="1.1.12.k9.1">
+<addon id="skin.arctic.zephyr.2.resurrection.k9" name="Arctic: Zephyr 2 - Resurrection K9" provider-name="jurialmunkey, pkscout, heppen, DenDyGH, garik128" version="1.1.12.k9.2">
     <requires>
         <import addon="service.mediainfo.filesize" version="1.9.4"/>
         <import addon="script.movieaudio" version="1.6.0"/>
