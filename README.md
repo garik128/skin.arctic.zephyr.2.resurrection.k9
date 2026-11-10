@@ -14,8 +14,7 @@ Skin Shortcuts 3. Для **Kodi 21 (Omega)** остаётся прежний в�
 
 ## Скриншоты
 
-Kinhank K9, Kodi FEL, фильм с Dolby Vision профиля 7 FEL. Под панелью информации видео
-чёрное: слой видео при Dolby Vision в снимок экрана не попадает, только интерфейс.
+Kinhank K9, Kodi FEL, фильм с Dolby Vision профиля 7 FEL.
 
 ![Главный экран](screenshots/01-home.jpg)
 
@@ -50,13 +49,13 @@ Kinhank K9, Kodi FEL, фильм с Dolby Vision профиля 7 FEL. Под п
 | `service.mediainfo.filesize` | сервис: размер и битрейт файла в списках, данные панели информации и сведений на старте, кнопка пульта для панели |
 | `script.movieaudio` | сервис: итоги по медиатеке у часов, числа в заголовках виджетов |
 | `tools/` | генераторы разметки панели (`skin-android-ppi.py`) и фона (`skin-default-bg.py`); нужны только тем, кто правит скин |
-| `repository.resurrection.k9` | Kodi-репозиторий (сам репозиторий живёт в ветке `gh-pages`, GitHub Pages) |
+| `repository.resurrection.k9` | Kodi-репозиторий, через него приходят обновления (данные репозитория - в ветке `gh-pages`) |
 | `service.resurrection.k9.setup` | установка одним zip: подключает репозиторий и ставит скин из него |
 
 ## Установка
 
-Kodi 22 (Piers) - основной выпуск, Kodi 21 (Omega) - легаси. Все файлы - на странице
-**<https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/>**.
+Kodi 22 (Piers) - основной выпуск, Kodi 21 (Omega) - легаси. Все zip - в
+**[последнем релизе](https://github.com/garik128/skin.arctic.zephyr.2.resurrection.k9/releases/latest)** (раздел Assets).
 
 **Одним zip (проще всего).** Скачать `service.resurrection.k9.setup-*.zip`, «Дополнения →
 Установить из zip» (если Kodi спросит - разрешить «Неизвестные источники»). Через несколько
@@ -111,7 +110,8 @@ OSD рядом с кнопкой дорожек).
 - Arctic Zephyr 2 Resurrection - **heppen**, мод **DenDyGH**
   ([исходник](https://github.com/DenDyGH/skin.arctic.zephyr.2.resurrection.k9)); основа выпуска
   для Kodi 22 - 1.1.12, для Kodi 21 - сборка 1.0.36-CPM
-- выпуск K9: перевод, панель информации, плашки, раздел «Дополнительно»
+- выпуск K9: перевод, панель информации, плашки, раздел «Дополнительно» - **garik128**
+  вместе с **Claude** (Anthropic)
 
 Шрифты: Roboto (Apache 2.0), Font Awesome и Inter (вариант для Kodi 21) - OFL, шрифты
 «текстов песен» - OFL, Apache 2.0 и бесплатные с разрешением распространения. Шрифты без
@@ -135,9 +135,9 @@ hardware-specific parts (HDMI output, temperatures, FEL) are hidden where unavai
 The main release is for Kodi 22 (based on Resurrection 1.1.12, Skin Shortcuts 3); Kodi 21
 gets the frozen legacy release 1.0.36.k9.x from the same repository (sources: branch `kodi21`).
 
-Install: from https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/ get
+Install: from the latest release (https://github.com/garik128/skin.arctic.zephyr.2.resurrection.k9/releases/latest) get
 `service.resurrection.k9.setup-*.zip` and install it from zip - it adds the repository and
 installs the skin with all dependencies (answer "Yes" twice). Or install
 `repository.resurrection.k9-*.zip` and the skin from that repository.
 License: CC BY-NC-SA 4.0 (skin), MIT (services). Credits: jurialmunkey, pkscout, heppen,
-DenDyGH.
+DenDyGH; K9 edition - garik128 with Claude (Anthropic).
