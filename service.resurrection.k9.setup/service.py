@@ -50,7 +50,7 @@ def main():
     if monitor.waitForAbort(3):
         return
     if installed(SKIN):
-        log("скин уже стоит - делать нечего")
+        log("скин уже стоит")
     else:
         if not installed(REPO):
             src = os.path.join(HERE, "resources", "repository")
@@ -65,12 +65,24 @@ def main():
         xbmc.executebuiltin("UpdateAddonRepos", True)
         monitor.waitForAbort(15)
         log("ставлю скин из репозитория")
-        # Kodi спросит «Установить?», подтянет зависимости и предложит сменить скин
-        xbmc.executebuiltin("InstallAddon(%s)" % SKIN, True)
-    for _ in range(120):
+        # Kodi спросит «Установить?», подтянет зависимости и предложит сменить скин.
+        # Без ожидания: если ждать здесь, установка зависимости-сервиса (например,
+        # обновление уже работающего service.mediainfo.filesize) повисает - Kodi ждёт
+        # остановки сервиса, а поток занят этим вызовом (телевизор, 2026-11-10)
+        xbmc.executebuiltin("InstallAddon(%s)" % SKIN)
+    for _ in range(900):
         if installed(SKIN) or monitor.waitForAbort(1):
             break
     if installed(SKIN):
+        # InstallAddon из скрипта, в отличие от меню дополнений, не предлагает
+        # переключиться на скин - переключаем сами; Kodi спросит «Сохранить?» с
+        # отсчётом, без ответа вернёт прежний скин (телевизор, 2026-11-10)
+        current, _ = rpc("Settings.GetSettingValue", setting="lookandfeel.skin")
+        if (current or {}).get("value") != SKIN:
+            say("Скин установлен. Подтвердите переключение - «Да».",
+                "Skin installed. Confirm the switch - \"Yes\".")
+            monitor.waitForAbort(3)
+            rpc("Settings.SetSettingValue", setting="lookandfeel.skin", value=SKIN)
         log("скин установлен, установщик выключается")
         rpc("Addons.SetAddonEnabled", addonid=ME, enabled=False)
     else:
