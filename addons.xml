@@ -1,60 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="skin.arctic.zephyr.2.resurrection.k9" name="Arctic: Zephyr 2 - Resurrection K9" provider-name="jurialmunkey, pkscout, heppen, DenDyGH, garik128" version="1.0.36.k9.2">
-    <requires>
-        <import addon="service.mediainfo.filesize" version="1.9.4"/>
-        <import addon="script.movieaudio" version="1.5.0"/>
-        <import addon="xbmc.gui" version="5.17.0" />
-        <import addon="script.skinshortcuts"/>
-        <import addon="script.skinhelper" version="0.0.4" />
-        <import addon="script.embuary.helper"/>
-        <import addon="script.skinvariables" version="2.1.14" />
-        <import addon="plugin.video.themoviedb.helper" version="5.4.8" />
-        <import addon="resource.images.studios.white"/>
-        <import addon="resource.images.moviegenreicons.transparent"/>
-        <import addon="resource.images.weathericons.white"/>
-        <import addon="resource.images.moviecountryicons.maps"/>
-    </requires>
-    <extension point="xbmc.gui.skin" debugging="false">
-		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080i" />
-	</extension>
-    <extension point="xbmc.addon.metadata">
-        <news></news>
-        <summary lang="de">Klar, minimalistisch, elegant, einfach, leicht</summary>
-        <summary lang="en">Clean, minimal, elegant, simple, light. K9 edition: Russian translation, playback info cards, Android TV boxes.</summary>
-        <summary lang="en_AU">Clean, minimal, elegant, simple, light.</summary>
-        <summary lang="en_US">Clean, minimal, elegant, simple, light.</summary>
-        <summary lang="es">Limpio, minimalista, elegante, simple, ligero.</summary>
-        <summary lang="fr">Clair, minimaliste, élégant, simple et léger.</summary>
-        <summary lang="fr_CA">Net, minimal, élégant, simple, léger.</summary>
-        <summary lang="it">Pulita, minimale, elegante, semplice, leggera.</summary>
-        <summary lang="lt">Švari, minimali, elegantiška, paprasta, lengva.</summary>
-        <summary lang="nl">Schoon, minimaal, elegant, simpel, licht.</summary>
-        <summary lang="no">Rent, minimalt, elegant, enkelt, lett.</summary>
-        <summary lang="pl">Prosta, minimalistyczna, elegancka i lekka.</summary>
-        <summary lang="pt_BR">Limpa, simplista, elegante, leve.</summary>
-        <summary lang="ro">Curat, minimalist, elegant, simplu, ușor</summary>
-        <summary lang="ru">Минималистичный скин. Выпуск K9: русский перевод, карточки информации о воспроизведении, Android-боксы.</summary>
-
-        <description lang="en">This is a light mod of Arctic Zephyr 2 by heppen. Arctic Zephyr 2 is a minimalistic skin created by jurialmunkey and moded to work with Kodi 19 Matrix by pkscout. The skin is designed to be simple so that the user can focus on their media content. In addition to the default light colour scheme, the skin also includes a number of darker variations. K9 edition: full Russian translation, playback info panel in cards, start-of-playback cards, badges below lists, an Extras section in skin settings. Fork of DenDyGH/skin.arctic.zephyr.2.resurrection.k9.</description>
-        <description lang="ru">Форк Arctic Zephyr 2 - Resurrection (DenDyGH). Выпуск K9: полный русский перевод, панель информации о воспроизведении карточками, сведения о дорожке и видео на старте, плашки под списками, раздел «Дополнительно» в настройках скина.</description>
-        <description lang="pl">Jest to modyfikacja skórki Arctic Zephyr 2 autorstwa heppen. Arctic Zephyr 2 jest minimalistyczną skórką stworzoną przez jurialmunkey i zmodowaną do pracy z Kodi 19 Matrix przez pkscout. Skórka została zaprojektowana jako prosta, aby użytkownik mógł skupić się na swojej zawartości multimedialnej. Oprócz domyślnego jasnego schematu kolorów, skórka zawiera również kilka ciemniejszych wariantów.</description>
-        <platform>all</platform>
-        <license>Creative Commons Attribution Non-Commercial Share-Alike 4.0</license>
-        <forum>https://forum.kodi.tv/showthread.php?tid=362941</forum>
-        <source>https://github.com/garik128/skin.arctic.zephyr.2.resurrection.k9</source>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-            <screenshot>resources/screenshot-01.jpg</screenshot>
-            <screenshot>resources/screenshot-02.jpg</screenshot>
-            <screenshot>resources/screenshot-03.jpg</screenshot>
-            <screenshot>resources/screenshot-04.jpg</screenshot>
-            <screenshot>resources/screenshot-05.jpg</screenshot>
-            <screenshot>resources/screenshot-06.jpg</screenshot>
-        </assets>
-    </extension>
-</addon>
 <addon id="service.mediainfo.filesize"
        name="Resurrection K9: media info"
        version="1.9.4"
@@ -72,7 +17,7 @@
         <license>MIT</license>
     </extension>
 </addon>
-<addon id="script.movieaudio" name="Resurrection K9: library totals" version="1.5.0" provider-name="garik128">
+<addon id="script.movieaudio" name="Resurrection K9: library totals" version="1.6.0" provider-name="garik128">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -85,12 +30,22 @@
     <license>MIT</license>
   </extension>
 </addon>
-<addon id="repository.resurrection.k9" name="Resurrection K9 repository" version="1.0.1" provider-name="garik128">
+<addon id="repository.resurrection.k9" name="Resurrection K9 repository" version="1.0.2" provider-name="garik128">
     <extension point="xbmc.addon.repository" name="Resurrection K9 repository">
         <dir>
             <info compressed="false">https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/addons.xml</info>
             <checksum>https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/addons.xml.md5</checksum>
             <datadir zip="true">https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/</datadir>
+        </dir>
+        <dir minversion="21.9.1">
+            <info compressed="false">https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/piers/addons.xml</info>
+            <checksum>https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/piers/addons.xml.md5</checksum>
+            <datadir zip="true">https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/piers/</datadir>
+        </dir>
+        <dir minversion="20.9.1" maxversion="21.9.0">
+            <info compressed="false">https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/omega/addons.xml</info>
+            <checksum>https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/omega/addons.xml.md5</checksum>
+            <datadir zip="true">https://garik128.github.io/skin.arctic.zephyr.2.resurrection.k9/omega/</datadir>
         </dir>
         <dir minversion="20.9.1" maxversion="21.9.0">
             <info compressed="false">https://raw.githubusercontent.com/DenDyGH/dendygh.github.io/main/omega/zips/addons.xml</info>
