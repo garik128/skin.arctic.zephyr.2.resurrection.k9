@@ -2,7 +2,7 @@
 """Панель информации о воспроизведении для Kodi на Android - разметка скина.
 
 Вписывает в 1080i/DialogPlayerProcessInfo.xml рабочей копии скина
-(~/code/Linux/coreelec/skin.arctic.zephyr.2.resurrection.k9) группу, видимую
+(легаси-копия (Kodi 21)) группу, видимую
 только на Android, между метками android-ppi:start / android-ppi:end; прежнюю
 версию группы заменяет. Значения - свойства Window(Home).Property(K9Info.<имя>),
 их собирает service.mediainfo.filesize (playerpanel.py). Подписи - прямо
@@ -23,6 +23,14 @@ colordiffuse приглушил бы контур вместе с заливко
 
     skin-android-ppi.py            показать, что поменяется
     skin-android-ppi.py --apply    вписать в рабочую копию
+    skin-android-ppi.py --skin <каталог скина> [--apply]   другая копия
+
+Копий скина две (CHANGES.md, п. 39): основная под Kodi 22 -
+../skin.arctic.zephyr.2.resurrection.k9 (основная копия, Kodi 22) (по умолчанию) и легаси
+под Kodi 21 - легаси-копия (Kodi 21). Различия скрипт
+определяет сам: в легаси положение логотипов на старте - настройки CoreELEC-сборки
+(osd.use*CodecStartupLogos), в основной - наша K9.StartLogos; шрифт значков
+font_tiny_iconic (Font Awesome) в основной вписывается в блок k9-fonts.
 
 На бокс - ./bin/k9-kodi.sh update --apply. Разбор - CHANGES.md скина, п. 17 и 21,
 и docs/howto/k9-kodi.md.
@@ -32,7 +40,14 @@ import re
 import sys
 import xml.etree.ElementTree as ET
 
-SKIN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skin.arctic.zephyr.2.resurrection.k9")
+def _skin_arg():
+    a = sys.argv[1:]
+    if "--skin" in a:
+        return os.path.abspath(os.path.expanduser(a[a.index("--skin") + 1]))
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skin.arctic.zephyr.2.resurrection.k9")
+
+
+SKIN = _skin_arg()
 DIALOG = os.path.join(SKIN, "1080i", "DialogPlayerProcessInfo.xml")
 FONTS = os.path.join(SKIN, "1080i", "Font.xml")
 MEDIA = os.path.join(SKIN, "media", "k9ppi")
@@ -333,9 +348,13 @@ def textures():
     return out
 
 
-def fonts_block(indent="        "):
+# значки (Font Awesome): в легаси он есть в каждом наборе, в 1.1.12 - нет
+ICON_FONT = ("font_tiny_iconic", "fa-solid-900.ttf", 22)
+
+
+def fonts_block(indent="        ", with_icon=False):
     lines = [indent + FSTART]
-    for name, fname, size, *aspect in K9_FONTS:
+    for name, fname, size, *aspect in K9_FONTS + ([ICON_FONT] if with_icon else []):
         lines += [indent + "<font>", indent + "    <name>%s</name>" % name,
                   indent + "    <filename>%s</filename>" % fname,
                   indent + "    <size>%d</size>" % size]
@@ -348,7 +367,12 @@ def fonts_block(indent="        "):
 
 def patch_fonts(raw):
     raw = re.sub(r"[ \t]*" + re.escape(FSTART) + r".*?" + re.escape(FEND) + r"\n", "", raw, flags=re.S)
-    return raw.replace("    </fontset>", fonts_block() + "    </fontset>")
+    parts = raw.split("    </fontset>")
+    out = []
+    for part in parts[:-1]:
+        own = part[part.rfind("<fontset"):]
+        out.append(part + fonts_block(with_icon="<name>%s</name>" % ICON_FONT[0] not in own))
+    return "    </fontset>".join(out + [parts[-1]]) if len(parts) > 1 else raw
 
 
 # --- плашки на старте воспроизведения (VideoFullScreen.xml), CHANGES.md, п. 27 ---
@@ -360,8 +384,19 @@ def patch_fonts(raw):
 # контрол не рисуется (CLAUDE.md garik128) - отсюда счётчик.
 SHOW = ("[String.IsEqual(Player.Process(av.change),1) | "
         "String.IsEqual(Window(Home).Property(MediaInfo.AVChange),1)]")
-LOGOS_ON = ("[Skin.HasSetting(osd.useleftCodecStartupLogos) | Skin.HasSetting(osd.usecenterCodecStartupLogos)"
-            " | Skin.HasSetting(osd.userightCodecStartupLogos)]")
+# положение логотипов на старте: в легаси (база 1.0.36-CPM) - настройки сборки CoreELEC,
+# в основной копии (1.1.12, их там нет) - наша K9.StartLogos: пусто - по центру, left, right, off
+LEGACY = "osd.usecenterCodecStartupLogos" in open(os.path.join(SKIN, "1080i", "SkinSettings.xml"),
+                                                    encoding="utf-8").read()
+if LEGACY:
+    LOGOS_ON = ("[Skin.HasSetting(osd.useleftCodecStartupLogos) | Skin.HasSetting(osd.usecenterCodecStartupLogos)"
+                " | Skin.HasSetting(osd.userightCodecStartupLogos)]")
+    LOGOS_LEFT = "Skin.HasSetting(osd.useleftCodecStartupLogos)"
+    LOGOS_RIGHT = "Skin.HasSetting(osd.userightCodecStartupLogos)"
+else:
+    LOGOS_ON = "!String.IsEqual(Skin.String(K9.StartLogos),off)"
+    LOGOS_LEFT = "String.IsEqual(Skin.String(K9.StartLogos),left)"
+    LOGOS_RIGHT = "String.IsEqual(Skin.String(K9.StartLogos),right)"
 VIDEO_LOGOS = [("dolbyvision", "Dolby_Vision"), ("hdr10plus", "HDR10Plus"), ("hdr10", "HDR10"),
                ("hlg", "HLG")]
 AUDIO_LOGOS = [
@@ -450,8 +485,8 @@ def build_start():
           hidden_fade(12),
           '            <left>%d</left>' % left, '            <top>40</top>',
           # положение - по штатной настройке «Значки кодеков при старте видео»
-          '            <animation effect="slide" start="0,0" end="%d,0" time="0" condition="Skin.HasSetting(osd.useleftCodecStartupLogos)">Conditional</animation>' % (40 - left),
-          '            <animation effect="slide" start="0,0" end="%d,0" time="0" condition="Skin.HasSetting(osd.userightCodecStartupLogos)">Conditional</animation>' % (1920 - 40 - cw - left),
+          '            <animation effect="slide" start="0,0" end="%d,0" time="0" condition="%s">Conditional</animation>' % (40 - left, LOGOS_LEFT),
+          '            <animation effect="slide" start="0,0" end="%d,0" time="0" condition="%s">Conditional</animation>' % (1920 - 40 - cw - left, LOGOS_RIGHT),
           ictl(ids, 12, "image", left=0, top=0, width=cw, height=ch, texture=("k9ppi/glass.png", 22)),
           ictl(ids, 12, "image", left=209, top=19, width=2, height=50, texture="k9ppi/hline.png")]
     known = []
@@ -532,6 +567,8 @@ OLD_NOT_ANDROID = "<visible>!System.Platform.Android</visible>"   # до п. 35
 def patch_fullscreen(raw):
     raw = raw.replace(OLD_NOT_ANDROID, NOT_ANDROID)
     for head in OLD_START_GROUPS:
+        if head not in raw:   # в 1.1.12 штатных бейджей на старте нет
+            continue
         i = raw.index(head) + len(head)
         nxt = raw[i:i + 200]
         if NOT_ANDROID not in nxt:
@@ -549,12 +586,9 @@ def main():
     apply_ = "--apply" in sys.argv[1:]
     raw = open(DIALOG, encoding="utf-8").read()
 
-    # значки групп - символы font_tiny_iconic из прежней панели
-    icons = {}
-    for name in ("Video", "System", "Audio", "DV Configuration"):
-        i = raw.index("<!-- %s Icon -->" % name)
-        icons[name] = re.search(r"<label>(.*?)</label>", raw[i:]).group(1)
-    icons["Output"] = ""   # fa-tv
+    # значки групп - символы font_tiny_iconic (Font Awesome) из панели CoreELEC-сборки
+    icons = {"Video": "\uf8a9", "System": "\ue253", "Audio": "\uf8f2", "DV Configuration": "\ue660",
+             "Output": "\uf26c"}   # fa-tv
 
     raw = raw.replace("<visible>!System.Platform.Android</visible>", "<visible>%s</visible>" % INACTIVE)
     block = build(icons)

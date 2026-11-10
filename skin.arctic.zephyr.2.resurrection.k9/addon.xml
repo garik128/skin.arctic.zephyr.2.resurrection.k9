@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.arctic.zephyr.2.resurrection.k9" name="Arctic: Zephyr 2 - Resurrection K9" provider-name="jurialmunkey, pkscout, heppen, DenDyGH, garik128" version="1.0.36.k9.2">
+<addon id="skin.arctic.zephyr.2.resurrection.k9" name="Arctic: Zephyr 2 - Resurrection K9" provider-name="jurialmunkey, pkscout, heppen, DenDyGH, garik128" version="1.1.12.k9.1">
     <requires>
         <import addon="service.mediainfo.filesize" version="1.9.4"/>
-        <import addon="script.movieaudio" version="1.5.0"/>
-        <import addon="xbmc.gui" version="5.17.0" />
-        <import addon="script.skinshortcuts"/>
+        <import addon="script.movieaudio" version="1.6.0"/>
+        <import addon="xbmc.gui" version="5.18.0" />
+        <import addon="script.skinshortcuts" version="3.0.3" />
         <import addon="script.skinhelper" version="0.0.4" />
         <import addon="script.embuary.helper"/>
-        <import addon="script.skinvariables" version="2.1.14" />
-        <import addon="plugin.video.themoviedb.helper" version="5.4.8" />
+        <import addon="script.skinvariables" version="2.1.28" />
+        <!-- K9: 5.4.16 - версия официального репозитория Kodi 22. Более новая есть только у DenDyGH,
+             а Kodi по умолчанию берёт официальные дополнения только из официального репозитория
+             (CHANGES.md, п. 39) -->
+        <import addon="plugin.video.themoviedb.helper" version="5.4.16" />
         <import addon="resource.images.studios.white"/>
         <import addon="resource.images.moviegenreicons.transparent"/>
         <import addon="resource.images.weathericons.white"/>
         <import addon="resource.images.moviecountryicons.maps"/>
     </requires>
-    <extension point="xbmc.gui.skin" debugging="false">
-		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080i" />
-	</extension>
+    <extension point="xbmc.gui.skin" debugging="false" defaultthemename="Textures.xbt" effectslowdown="1">
+        <res width="1920" height="1080" aspect="16:9" default="true" folder="1080i" />
+    </extension>
     <extension point="xbmc.addon.metadata">
-        <news></news>
         <summary lang="de">Klar, minimalistisch, elegant, einfach, leicht</summary>
-        <summary lang="en">Clean, minimal, elegant, simple, light. K9 edition: Russian translation, playback info cards, Android TV boxes.</summary>
+        <summary lang="en">Clean, minimal, elegant, simple, light. K9 edition for Kodi 22: Russian translation, playback info cards, Android TV boxes.</summary>
         <summary lang="en_AU">Clean, minimal, elegant, simple, light.</summary>
         <summary lang="en_US">Clean, minimal, elegant, simple, light.</summary>
         <summary lang="es">Limpio, minimalista, elegante, simple, ligero.</summary>
@@ -33,11 +35,14 @@
         <summary lang="pl">Prosta, minimalistyczna, elegancka i lekka.</summary>
         <summary lang="pt_BR">Limpa, simplista, elegante, leve.</summary>
         <summary lang="ro">Curat, minimalist, elegant, simplu, ușor</summary>
-        <summary lang="ru">Минималистичный скин. Выпуск K9: русский перевод, карточки информации о воспроизведении, Android-боксы.</summary>
+        <summary lang="ru">Минималистичный скин. Выпуск K9 для Kodi 22: русский перевод, карточки информации о воспроизведении, Android-боксы.</summary>
+        <summary lang="zh_CN">简洁、极简、雅致、简约、清爽。</summary>
 
-        <description lang="en">This is a light mod of Arctic Zephyr 2 by heppen. Arctic Zephyr 2 is a minimalistic skin created by jurialmunkey and moded to work with Kodi 19 Matrix by pkscout. The skin is designed to be simple so that the user can focus on their media content. In addition to the default light colour scheme, the skin also includes a number of darker variations. K9 edition: full Russian translation, playback info panel in cards, start-of-playback cards, badges below lists, an Extras section in skin settings. Fork of DenDyGH/skin.arctic.zephyr.2.resurrection.k9.</description>
+        <description lang="en">This is a light mod of Arctic Zephyr 2 by heppen. Arctic Zephyr 2 is a minimalistic skin created by jurialmunkey and moded to work with Kodi 19 Matrix by pkscout. The skin is designed to be simple so that the user can focus on their media content. K9 edition: full Russian translation, playback info panel in cards, start-of-playback cards, badges below lists, an Extras section in skin settings. Fork of DenDyGH/skin.arctic.zephyr.2.resurrection.k9.</description>
         <description lang="ru">Форк Arctic Zephyr 2 - Resurrection (DenDyGH). Выпуск K9: полный русский перевод, панель информации о воспроизведении карточками, сведения о дорожке и видео на старте, плашки под списками, раздел «Дополнительно» в настройках скина.</description>
-        <description lang="pl">Jest to modyfikacja skórki Arctic Zephyr 2 autorstwa heppen. Arctic Zephyr 2 jest minimalistyczną skórką stworzoną przez jurialmunkey i zmodowaną do pracy z Kodi 19 Matrix przez pkscout. Skórka została zaprojektowana jako prosta, aby użytkownik mógł skupić się na swojej zawartości multimedialnej. Oprócz domyślnego jasnego schematu kolorów, skórka zawiera również kilka ciemniejszych wariantów.</description>
+        <description lang="es">Esta es una ligera modificación de Arctic Zephyr 2 realizada por heppen. Arctic Zephyr 2 es un skin minimalista creado por jurialmunkey y adaptado para funcionar con Kodi 19 Matrix por pkscout. El diseño es simple para que el usuario pueda centrarse en su contenido multimedia.</description>
+        <description lang="pl">Jest to modyfikacja skórki Arctic Zephyr 2 autorstwa heppen. Arctic Zephyr 2 jest minimalistyczną skórką stworzoną przez jurialmunkey i zmodowaną do pracy z Kodi 19 Matrix przez pkscout. Skórka została zaprojektowana jako prosta, aby użytkownik mógł skupić się na swojej zawartości multimedialnej.</description>
+        <description lang="zh-CN">这是由 heppen 制作的 Arctic Zephyr 2 皮肤的轻量修改版。Arctic Zephyr 2 是一款由 jurialmunkey 创作的极简风格皮肤，经 pkscout 适配后可用于 Kodi 19 Matrix 版本。该皮肤采用简约设计，旨在让用户能专注于自身的媒体内容。</description>
         <platform>all</platform>
         <license>Creative Commons Attribution Non-Commercial Share-Alike 4.0</license>
         <forum>https://forum.kodi.tv/showthread.php?tid=362941</forum>

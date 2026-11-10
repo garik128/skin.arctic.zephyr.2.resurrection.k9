@@ -160,7 +160,7 @@
                     <top>1000</top>
                     <width>34</width>
                     <height>34</height>
-                    <texture flipx="false" colordiffuse="$VAR[HighlightColor]">icons/spin-left.png</texture>
+                    <texture flipx="false" colordiffuse="$VAR[ColorHighlight]">icons/spin-left.png</texture>
                     <animation effect="fade" time="1000" start="100" end="0" condition="System.IdleTime(2)">Conditional</animation>
                 </control>
                 <control type="image">
@@ -169,7 +169,7 @@
                     <top>1000</top>
                     <width>34</width>
                     <height>34</height>
-                    <texture flipx="true" colordiffuse="$VAR[HighlightColor]">icons/spin-left.png</texture>
+                    <texture flipx="true" colordiffuse="$VAR[ColorHighlight]">icons/spin-left.png</texture>
                     <animation effect="fade" time="1000" start="100" end="0" condition="System.IdleTime(2)">Conditional</animation>
                 </control>
             </control>

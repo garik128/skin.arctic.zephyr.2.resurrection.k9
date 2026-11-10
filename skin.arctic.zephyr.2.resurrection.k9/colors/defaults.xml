@@ -58,9 +58,4 @@
 
     <!-- Shadows -->
     <color name="Shadow">55ffffff</color>
-	
-    <!-- PlayerProcessInfo -->
-    <color name="dialog_fg_100">ffe5e5e5</color>
-    <color name="dialog_fg_90">e7e5e5e5</color>
-    <color name="dialog_fg_70">b3e5e5e5</color>
 </colors>

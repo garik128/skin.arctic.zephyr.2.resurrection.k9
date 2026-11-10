@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.movieaudio" name="Resurrection K9: library totals" version="1.5.0" provider-name="garik128">
+<addon id="script.movieaudio" name="Resurrection K9: library totals" version="1.6.0" provider-name="garik128">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
