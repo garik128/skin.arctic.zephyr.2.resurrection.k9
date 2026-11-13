@@ -32,6 +32,11 @@ PlayerPanel.video_line):
 модуль playerpanel.py): на CoreELEC панель скина питается полями его сборки,
 которых в Kodi на Android нет.
 
+И даты «сегодня» и «вчера» в коротком формате региона Kodi (как у ListItem.DateAdded),
+чтобы скин писал «Сегодня»/«Вчера» у роликов дополнений: считать даты скин не умеет.
+    K9.DateToday       "13.11.2026"
+    K9.DateYesterday   "12.11.2026"
+
 Всё посчитанное кладётся в addon_data/service.mediainfo.filesize/cache.json,
 плюс при старте и после сканирования библиотеки фильмы обходятся заранее —
 чтобы при листании ничего не тормозило и не дёргало NFS.
@@ -350,6 +355,21 @@ class AudioTrack(xbmc.Player):
         log('audio stream: %s' % label, xbmc.LOGINFO)
 
 
+DATES_CHECK = 30  # как часто обновляем K9.DateToday/K9.DateYesterday, сек
+
+
+def sync_dates(state):
+    """Сегодня и вчера в формате region dateshort -> свойства Home (раз в DATES_CHECK)."""
+    import datetime
+    fmt = xbmc.getRegion('dateshort') or '%d.%m.%Y'
+    today = datetime.date.today()
+    if state.get('day') == today:
+        return
+    state['day'] = today
+    HOME.setProperty('K9.DateToday', today.strftime(fmt))
+    HOME.setProperty('K9.DateYesterday', (today - datetime.timedelta(days=1)).strftime(fmt))
+
+
 class Service(xbmc.Monitor):
 
     def __init__(self):
@@ -431,10 +451,14 @@ class Service(xbmc.Monitor):
 
     def run(self):
         keymap_state, keymap_at = {}, 0.0
+        dates_state, dates_at = {}, 0.0
         while not self.abortRequested():
             try:
                 self.tick()
                 now = time.time()
+                if now - dates_at >= DATES_CHECK:
+                    dates_at = now
+                    sync_dates(dates_state)
                 if now - keymap_at >= PPI_CHECK:
                     keymap_at = now
                     sync_ppi_keymap(keymap_state)

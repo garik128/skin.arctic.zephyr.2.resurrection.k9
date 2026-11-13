@@ -1408,7 +1408,32 @@
                     <param name="label" value="$INFO[$PARAM[container]ListItem.Year]" />
                     <param name="textcolor" value="$PARAM[textcolor]" />
                     <param name="divider" value="false" />
-                    <param name="visible" value="!String.IsEqual($PARAM[container]ListItem.DBType,set) + !String.IsEqual($PARAM[container]ListItem.DBType,artist) + !String.IsEqual($PARAM[container]ListItem.DBType,album) + !String.IsEqual($PARAM[container]ListItem.DBType,song) + [!String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEmpty($PARAM[container]ListItem.Premiered)]" />
+                    <param name="visible" value="!String.IsEqual($PARAM[container]ListItem.DBType,set) + !String.IsEqual($PARAM[container]ListItem.DBType,artist) + !String.IsEqual($PARAM[container]ListItem.DBType,album) + !String.IsEqual($PARAM[container]ListItem.DBType,song) + [!String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEmpty($PARAM[container]ListItem.Premiered)] + ![String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.DateAdded)]" />
+                </include>
+                <!-- K9: video day - addon videos (YouTube): Today/Yesterday/date + time instead of year, then duration -->
+                <include content="Flix_Object_Info_Line_Label">
+                    <param name="label" value="$LOCALIZE[33006]$INFO[$PARAM[container]ListItem.StartTime, ,]" />
+                    <param name="textcolor" value="$PARAM[textcolor]" />
+                    <param name="divider" value="false" />
+                    <param name="visible" value="String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.DateAdded) + !String.IsEmpty(Window(Home).Property(K9.DateToday)) + String.IsEqual($PARAM[container]ListItem.DateAdded,Window(Home).Property(K9.DateToday))" />
+                </include>
+                <include content="Flix_Object_Info_Line_Label">
+                    <param name="label" value="$LOCALIZE[35346]$INFO[$PARAM[container]ListItem.StartTime, ,]" />
+                    <param name="textcolor" value="$PARAM[textcolor]" />
+                    <param name="divider" value="false" />
+                    <param name="visible" value="String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.DateAdded) + !String.IsEmpty(Window(Home).Property(K9.DateYesterday)) + String.IsEqual($PARAM[container]ListItem.DateAdded,Window(Home).Property(K9.DateYesterday))" />
+                </include>
+                <include content="Flix_Object_Info_Line_Label">
+                    <param name="label" value="$INFO[$PARAM[container]ListItem.DateAdded]$INFO[$PARAM[container]ListItem.StartTime, ,]" />
+                    <param name="textcolor" value="$PARAM[textcolor]" />
+                    <param name="divider" value="false" />
+                    <param name="visible" value="String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.DateAdded) + ![!String.IsEmpty(Window(Home).Property(K9.DateToday)) + String.IsEqual($PARAM[container]ListItem.DateAdded,Window(Home).Property(K9.DateToday))] + ![!String.IsEmpty(Window(Home).Property(K9.DateYesterday)) + String.IsEqual($PARAM[container]ListItem.DateAdded,Window(Home).Property(K9.DateYesterday))]" />
+                </include>
+                <include content="Flix_Object_Info_Line_Label">
+                    <param name="id" value="$PARAM[uid]21" />
+                    <param name="label" value="$INFO[$PARAM[container]ListItem.Duration(mins),, $LOCALIZE[31020]]" />
+                    <param name="textcolor" value="$PARAM[textcolor]" />
+                    <param name="visible" value="String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.Duration)" />
                 </include>
                 <include content="Flix_Object_Info_Line_Label">
                     <param name="label" value="$INFO[$PARAM[container]ListItem.Premiered]" />
@@ -1528,7 +1553,32 @@
                     <param name="label" value="$INFO[$PARAM[container]ListItem.Year]" />
                     <param name="textcolor" value="$PARAM[textcolor]" />
                     <param name="divider" value="false" />
-                    <param name="visible" value="!String.IsEqual($PARAM[container]ListItem.DBType,set) + !String.IsEqual($PARAM[container]ListItem.DBType,artist) + !String.IsEqual($PARAM[container]ListItem.DBType,album) + !String.IsEqual($PARAM[container]ListItem.DBType,song) + [!String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEmpty($PARAM[container]ListItem.Premiered)]" />
+                    <param name="visible" value="!String.IsEqual($PARAM[container]ListItem.DBType,set) + !String.IsEqual($PARAM[container]ListItem.DBType,artist) + !String.IsEqual($PARAM[container]ListItem.DBType,album) + !String.IsEqual($PARAM[container]ListItem.DBType,song) + [!String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEmpty($PARAM[container]ListItem.Premiered)] + ![String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.DateAdded)]" />
+                </include>
+                <!-- K9: video day - addon videos (YouTube): Today/Yesterday/date + time instead of year, then duration -->
+                <include content="Object_Info_Line_Label">
+                    <param name="label" value="$LOCALIZE[33006]$INFO[$PARAM[container]ListItem.StartTime, ,]" />
+                    <param name="textcolor" value="$PARAM[textcolor]" />
+                    <param name="divider" value="false" />
+                    <param name="visible" value="String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.DateAdded) + !String.IsEmpty(Window(Home).Property(K9.DateToday)) + String.IsEqual($PARAM[container]ListItem.DateAdded,Window(Home).Property(K9.DateToday))" />
+                </include>
+                <include content="Object_Info_Line_Label">
+                    <param name="label" value="$LOCALIZE[35346]$INFO[$PARAM[container]ListItem.StartTime, ,]" />
+                    <param name="textcolor" value="$PARAM[textcolor]" />
+                    <param name="divider" value="false" />
+                    <param name="visible" value="String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.DateAdded) + !String.IsEmpty(Window(Home).Property(K9.DateYesterday)) + String.IsEqual($PARAM[container]ListItem.DateAdded,Window(Home).Property(K9.DateYesterday))" />
+                </include>
+                <include content="Object_Info_Line_Label">
+                    <param name="label" value="$INFO[$PARAM[container]ListItem.DateAdded]$INFO[$PARAM[container]ListItem.StartTime, ,]" />
+                    <param name="textcolor" value="$PARAM[textcolor]" />
+                    <param name="divider" value="false" />
+                    <param name="visible" value="String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.DateAdded) + ![!String.IsEmpty(Window(Home).Property(K9.DateToday)) + String.IsEqual($PARAM[container]ListItem.DateAdded,Window(Home).Property(K9.DateToday))] + ![!String.IsEmpty(Window(Home).Property(K9.DateYesterday)) + String.IsEqual($PARAM[container]ListItem.DateAdded,Window(Home).Property(K9.DateYesterday))]" />
+                </include>
+                <include content="Object_Info_Line_Label">
+                    <param name="id" value="$PARAM[uid]21" />
+                    <param name="label" value="$INFO[$PARAM[container]ListItem.Duration(mins),, $LOCALIZE[31020]]" />
+                    <param name="textcolor" value="$PARAM[textcolor]" />
+                    <param name="visible" value="String.IsEqual($PARAM[container]ListItem.DBType,video) + !String.IsEmpty($PARAM[container]ListItem.Duration)" />
                 </include>
                 <include content="Object_Info_Line_Label">
                     <param name="label" value="$INFO[$PARAM[container]ListItem.Premiered]" />

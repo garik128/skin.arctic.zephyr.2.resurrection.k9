@@ -49,7 +49,7 @@
 
     <!-- Backing Panels and Furniture -->
     <color name="PosterBack">ff2b2b2b</color>
-    <color name="AltPosterBack">1fe5e5e5</color>
+    <color name="AltPosterBack">b3303030</color>
 
     <!-- Highlight -->
     <color name="Highlight">ffe50914</color>

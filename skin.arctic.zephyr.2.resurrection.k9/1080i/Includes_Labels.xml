@@ -52,9 +52,17 @@
     <!-- Третья строка карточки Small Landscape: только для роликов YouTube -
          дата с временем публикации и продолжительность. Для остальных
          виджетов переменная пустая, поэтому их вид не меняется. -->
+    <!-- «Сегодня»/«Вчера» вместо даты ролика: даты дня кладёт service.mediainfo.filesize
+         (K9.DateToday/K9.DateYesterday в формате ListItem.DateAdded) -->
+    <variable name="Label_K9_VideoDay">
+        <value condition="!String.IsEmpty(Window(Home).Property(K9.DateToday)) + String.IsEqual(ListItem.DateAdded,Window(Home).Property(K9.DateToday))">$LOCALIZE[33006]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(K9.DateYesterday)) + String.IsEqual(ListItem.DateAdded,Window(Home).Property(K9.DateYesterday))">$LOCALIZE[35346]</value>
+        <value>$INFO[ListItem.DateAdded]</value>
+    </variable>
+
     <variable name="Label_SmallLandscapeWidget_Sublabel3">
         <value condition="![String.StartsWith(ListItem.FolderPath,plugin://plugin.video.youtube) | String.StartsWith(ListItem.FileNameAndPath,plugin://plugin.video.youtube)]"></value>
-        <value condition="!String.IsEmpty(ListItem.DateAdded)">$INFO[ListItem.DateAdded]$INFO[ListItem.StartTime, ,]$INFO[ListItem.Duration,  •  ,]</value>
+        <value condition="!String.IsEmpty(ListItem.DateAdded)">$VAR[Label_K9_VideoDay]$INFO[ListItem.StartTime, ,]$INFO[ListItem.Duration(mins),  •  , $LOCALIZE[31020]]</value>
         <value condition="!String.IsEmpty(ListItem.Premiered)">$INFO[ListItem.Premiered]$INFO[ListItem.Duration,  •  ,]</value>
         <value>$INFO[ListItem.Duration]</value>
     </variable>

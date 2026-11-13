@@ -23,7 +23,10 @@
     <!-- Высота карточки Small Landscape. Раньше бралась общая item_icon_height
          (350) и обрезала третью строку подписи (дата и продолжительность),
          которая заканчивается на 343. В ряд (item_row_height 412.5) влезает. -->
-    <constant name="item_smalllandscape_height">380</constant>
+    <!-- 380 -> 360 (13.11.2026): ряд виджета на главной (templates.xml, height 380.5)
+         режет всё ниже себя, и рамка фокуса карточки высотой 380 срезалась снизу то
+         сильнее, то слабее - в зависимости от того, на какой пиксель встал ряд. -->
+    <constant name="item_smalllandscape_height">360</constant>
     <constant name="item_smallsquare_width">300</constant>
     <constant name="item_smallsquare_iconheight">290</constant>
 

@@ -161,6 +161,7 @@
         <param name="textfade_end" default="100" />
         <param name="textfade_start" default="100" />
         <definition>
+            <!-- K9: card text up - строки 5/35/62 -> 2/29/54, третья строка не липнет к низу карточки (360) -->
             <control type="group">
                 <top>$PARAM[icononlyheight]</top>
                 <left>20</left>
@@ -173,7 +174,7 @@
                     <font>font_tiny_bold</font>
                     <selectedcolor>panel_fg_100</selectedcolor>
                     <textcolor>panel_fg_100</textcolor>
-                    <top>5</top>
+                    <top>2</top>
                     <height>20</height>
                     <aligny>center</aligny>
                     <align>center</align>
@@ -185,7 +186,7 @@
                     <font>font_statusbar</font>
                     <selectedcolor>panel_fg_70</selectedcolor>
                     <textcolor>panel_fg_70</textcolor>
-                    <top>35</top>
+                    <top>29</top>
                     <height>20</height>
                     <aligny>center</aligny>
                     <align>center</align>
@@ -197,7 +198,7 @@
                     <font>font_statusbar</font>
                     <selectedcolor>panel_fg_70</selectedcolor>
                     <textcolor>panel_fg_70</textcolor>
-                    <top>62</top>
+                    <top>54</top>
                     <height>20</height>
                     <aligny>center</aligny>
                     <align>center</align>
