@@ -937,44 +937,4 @@
         <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,8)">7.1</value>
         <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,10)">9.1</value>
     </variable>
-    <!-- k9-home-bar:start -->
-    <variable name="K9_Bar_Date">
-        <value condition="String.IsEqual(System.Date(ddd),$LOCALIZE[41])">$LOCALIZE[31573]$COMMA $INFO[System.Date(d MMMM)]</value>
-        <value condition="String.IsEqual(System.Date(ddd),$LOCALIZE[42])">$LOCALIZE[31574]$COMMA $INFO[System.Date(d MMMM)]</value>
-        <value condition="String.IsEqual(System.Date(ddd),$LOCALIZE[43])">$LOCALIZE[31575]$COMMA $INFO[System.Date(d MMMM)]</value>
-        <value condition="String.IsEqual(System.Date(ddd),$LOCALIZE[44])">$LOCALIZE[31576]$COMMA $INFO[System.Date(d MMMM)]</value>
-        <value condition="String.IsEqual(System.Date(ddd),$LOCALIZE[45])">$LOCALIZE[31577]$COMMA $INFO[System.Date(d MMMM)]</value>
-        <value condition="String.IsEqual(System.Date(ddd),$LOCALIZE[46])">$LOCALIZE[31578]$COMMA $INFO[System.Date(d MMMM)]</value>
-        <value condition="String.IsEqual(System.Date(ddd),$LOCALIZE[47])">$LOCALIZE[31579]$COMMA $INFO[System.Date(d MMMM)]</value>
-        <value>$INFO[System.Date(ddd)]$COMMA $INFO[System.Date(d MMMM)]</value>
-    </variable>
-    <variable name="K9_Panel_Status">
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Canceled)">$LOCALIZE[31570]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Ended)">$LOCALIZE[31569]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Returning Series)">$LOCALIZE[31568]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),In Production)">$LOCALIZE[31571]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Post Production)">$LOCALIZE[31571]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Planned)">$LOCALIZE[31572]</value>
-    </variable>
-    <variable name="K9_Panel_Country">
-        <value condition="!String.IsEmpty(Window(Home).Property(MediaInfo.Country))">$INFO[Window(Home).Property(MediaInfo.Country)]</value>
-        <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.Country.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Country.2.Name),$COMMA ,]</value>
-    </variable>
-    <variable name="K9_Panel_Budget">
-        <value condition="!String.IsEmpty(Window(Home).Property(MediaInfo.Budget))">$INFO[Window(Home).Property(MediaInfo.Budget)]</value>
-        <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.Budget)]</value>
-    </variable>
-    <variable name="K9_Panel_Revenue">
-        <value condition="!String.IsEmpty(Window(Home).Property(MediaInfo.Revenue))">$INFO[Window(Home).Property(MediaInfo.Revenue)]</value>
-        <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.Revenue)]</value>
-    </variable>
-    <variable name="K9_Panel_Cast">
-        <value condition="!String.IsEmpty(Window(Home).Property(MediaInfo.Cast))">$INFO[Window(Home).Property(MediaInfo.Cast)]</value>
-        <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.Name),$COMMA ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.3.Name),$COMMA ,]</value>
-    </variable>
-    <variable name="K9_Panel_Collection">
-        <value condition="!String.IsEmpty(ListItem.Set)">$INFO[ListItem.Set]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Set.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Set.Name)]</value>
-    </variable>
-    <!-- k9-home-bar:end -->
 </includes>

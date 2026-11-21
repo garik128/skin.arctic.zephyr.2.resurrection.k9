@@ -528,8 +528,6 @@
         <control type="group">
             <visible>!VideoPlayer.Content(musicvideos)</visible>
             <visible>!Window.IsVisible(VideoOSDBookmarks.xml)</visible>
-            <!-- K9: на старте плеер на миг на паузе/кэширует и шторка (крупная инфо с постером, логотипы кодеков) закрывала наши плашки; пока идёт старт (MediaInfo.AVChange), прячем её, если пользователь сам ничего не открывал -->
-            <visible>![String.IsEqual(Window(Home).Property(MediaInfo.AVChange),1) + !String.IsEmpty(Window(Home).Property(K9Info.Active)) + !Window.IsActive(videoosd) + !Player.ShowInfo + !Window.IsActive(DialogFullScreenInfo.xml) + !Player.Seeking + !Player.DisplayAfterSeek + !Player.Forwarding + !Player.Rewinding + String.IsEmpty(Window(Home).Property(OSDInfo))]</visible>
             <visible>!String.IsEmpty(Window(Home).Property(OSDInfo)) | Player.Caching | Player.Seeking | Player.DisplayAfterSeek | Player.Paused | Player.Forwarding | Player.Rewinding | Player.ShowInfo | Window.IsActive(musicosd) | Window.IsActive(videoosd) | Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)</visible>
             <visible>!Window.IsVisible(1142) + !Window.IsVisible(1143)</visible>
             <animation effect="fade" start="0" end="100" time="300">VisibleChange</animation>
