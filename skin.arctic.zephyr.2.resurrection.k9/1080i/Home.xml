@@ -107,21 +107,6 @@
 
             
         
-        <!-- soundbar-night-badge:start -->
-        <control type="group" id="9512" description="soundbar-night-badge">
-            <depth>DepthOSD+</depth>
-            <visible>!String.IsEmpty(Window(Home).Property(SoundbarNight))</visible>
-            <control type="image" id="9513">
-                <left>1765</left>
-                <top>230</top>
-                <width>75</width>
-                <height>75</height>
-                <animation effect="fade" start="0" end="100" time="400">Visible</animation>
-                <animation effect="fade" start="100" end="0" time="400">Hidden</animation>
-                <texture>soundbar-night.png</texture>
-            </control>
-        </control>
-        <!-- soundbar-night-badge:end -->
         <!-- movie-totals-label:start -->
         <control type="group" id="9514" description="movie-totals-label">
             <visible>System.HasAddon(script.movieaudio) + !Skin.HasSetting(DisableClock) + !Skin.HasSetting(K9.HideTotals)</visible>

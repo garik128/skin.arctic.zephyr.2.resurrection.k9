@@ -1193,6 +1193,31 @@
             <visible>Integer.IsGreater(VideoPlayer.AudioStreamCount,1)</visible>
         </control>
 
+        <!-- pc-osd-quality: begin (bin/coreelec/osd-quality.py) -->
+        <!-- «Качество»: варианты видео адаптивного потока (YouTube), выбор на лету -->
+        <control type="button" id="10024">
+            <centertop>50%</centertop>
+            <description>Video Quality Selector</description>
+            <width>48</width>
+            <height>48</height>
+            <label>$INFO[Window(Home).Property(MediaInfo.VideoQuality)]</label>
+            <textcolor>Selected</textcolor>
+            <focusedcolor>Highlight</focusedcolor>
+            <shadowcolor>Shadow</shadowcolor>
+            <font>font_osd_lang</font>
+            <align>right</align>
+            <aligny>top</aligny>
+            <textoffsetx>0</textoffsetx>
+            <texturefocus colordiffuse="$VAR[ColorHighlight]">osd/video-settings.png</texturefocus>
+            <texturenofocus colordiffuse="panel_fg_70">osd/video-settings.png</texturenofocus>
+            <onclick>RunScript(special://home/addons/service.mediainfo.filesize/quality.py)</onclick>
+            <include>OSD_Button_OnFocus</include>
+            <visible>Window.IsVisible(videoosd)</visible>
+            <visible>!VideoPlayer.Content(LiveTV)</visible>
+            <visible>Integer.IsGreater(Window(Home).Property(MediaInfo.VideoStreams),1)</visible>
+        </control>
+        <!-- pc-osd-quality: end -->
+
         <!-- информация о воспроизведении - сразу за кнопкой дорожек, в одно нажатие из OSD
              (CHANGES.md, п. 32); кнопку пульта для неё выбирают в «Дополнительно» -->
         <control type="button" id="414">

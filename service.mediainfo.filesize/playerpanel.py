@@ -372,8 +372,8 @@ class PlayerPanel(threading.Thread):
         nits = lambda v: ('%.4f' % v).rstrip('0').rstrip('.')  # noqa: E731
         mdl = cll = ''
         if meta and meta.get('mdl'):
-            low, peak = meta['mdl']
-            mdl = 'мастеринг %s нит' % nits(peak) + ('' if low is None else ' (чёрный %s)' % nits(low))
+            _low, peak = meta['mdl']
+            mdl = 'мастеринг %s нит' % nits(peak)  # минимум яркости не показываем: место нужно под MaxCLL
         if meta and meta.get('cll'):
             cll = 'MaxCLL %s · MaxFALL %s' % tuple(nits(v) for v in meta['cll'])
         if hdr == 'dolbyvision':

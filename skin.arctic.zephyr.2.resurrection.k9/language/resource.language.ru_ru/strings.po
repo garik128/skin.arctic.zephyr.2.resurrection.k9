@@ -2043,3 +2043,8 @@ msgstr "Фильмы Atmos/DTS:X"
 msgctxt "#31857"
 msgid "Playback info button in video OSD"
 msgstr "Кнопка информации о воспроизведении в OSD видео"
+
+#: /1080i/Includes_Object.xml
+msgctxt "#31858"
+msgid "2 DV layers: plays as HDR10"
+msgstr "2 слоя DV: пойдёт HDR10"

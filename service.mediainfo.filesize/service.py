@@ -37,6 +37,16 @@ PlayerPanel.video_line):
     K9.DateToday       "13.11.2026"
     K9.DateYesterday   "12.11.2026"
 
+И три строки панели выбранного на главной Netflix (CHANGES.md скина, п. 42-43), из
+свойств TMDb Helper, которые меняются вслед за фокусом:
+    MediaInfo.Country  "Франция, Великобритания" (до двух стран, по-русски:
+                       словарь countries_ru.json; нет в словаре - как у TMDb)
+    MediaInfo.Budget   "$17.5 млн" (из "$17,500,000")
+    MediaInfo.Revenue  "$1.2 млрд"
+    MediaInfo.Cast     до трёх имён в две строки через \\n: перенос только между именами,
+                       не поместившееся целиком имя не выводится (cast_lines)
+Словарь строит bin/coreelec/mediainfo-countries.py из garik128.
+
 Всё посчитанное кладётся в addon_data/service.mediainfo.filesize/cache.json,
 плюс при старте и после сканирования библиотеки фильмы обходятся заранее —
 чтобы при листании ничего не тормозило и не дёргало NFS.
@@ -44,6 +54,7 @@ PlayerPanel.video_line):
 
 import json
 import os
+import re
 import threading
 import time
 
@@ -93,6 +104,64 @@ NEED_AV_FLAG = playerpanel.available()
 # признак для скина: сервис работает - показывать наши панель и плашки на старте
 # вместо панели CoreELEC (CHANGES.md скина, п. 35)
 ACTIVE_PROP = 'K9Info.Active'
+
+TMDB_PROP = 'Window(Home).Property(TMDbHelper.ListItem.%s)'
+TMDB_OUT = ('MediaInfo.Country', 'MediaInfo.Budget', 'MediaInfo.Revenue', 'MediaInfo.Cast')
+CAST_LINE = 22.0   # ширина строки колонки (248 px, font_tiny_23) в условных знаках, подобрано на реальных данных
+CAST_WIDE = 'ЖШЩЮМФЫЪЭWMmшщжюфы@'
+COUNTRIES_FILE = os.path.join(xbmcvfs.translatePath(ADDON.getAddonInfo('path')), 'countries_ru.json')
+
+
+def load_countries():
+    try:
+        with open(COUNTRIES_FILE, encoding='utf-8') as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def short_money(text):
+    """'$17,500,000' -> '$17.5 млн', '$1,234,567,890' -> '$1.2 млрд'; не число - ''."""
+    text = (text or '').strip()
+    digits = re.sub(r'[^0-9]', '', text.split('.')[0])
+    if not digits:
+        return ''
+    value = int(digits)
+    symbol = text[0] if text and not text[0].isdigit() else ''
+    for limit, suffix in ((10 ** 9, 'млрд'), (10 ** 6, 'млн'), (10 ** 3, 'тыс.')):
+        if value >= limit:
+            num = ('%.1f' % (value / float(limit))).rstrip('0').rstrip('.')
+            return '%s%s %s' % (symbol, num, suffix)
+    return '%s%d' % (symbol, value) if value else ''
+
+
+def text_units(text):
+    """Грубая ширина строки в знаках: широкие буквы шире, пробел и запятая уже."""
+    return sum(1.35 if ch in CAST_WIDE else 0.5 if ch in ' ,.-' else 1.0 for ch in text)
+
+
+def cast_lines(names):
+    """Имена в две строки: перенос только между именами, запятая только внутри строки,
+    имя, не поместившееся целиком во вторую строку, не выводится."""
+    lines = []
+    for name in names[:3]:
+        if not lines:
+            lines.append(name)
+            continue
+        joined = lines[-1] + ', ' + name
+        if text_units(joined) <= CAST_LINE:
+            lines[-1] = joined
+        elif len(lines) < 2 and text_units(name) <= CAST_LINE:
+            lines.append(name)
+        else:
+            break
+    return '\n'.join(lines)
+
+
+def short_countries(text, names):
+    parts = [x.strip() for x in (text or '').split('/') if x.strip()][:2]
+    return ', '.join(names.get(x, x) for x in parts)
+
 
 UNSUPPORTED = ('plugin://', 'pvr://', 'addons://', 'videodb://', 'musicdb://',
                'library://', 'upnp://', 'stack://', 'http://', 'https://')
@@ -201,6 +270,53 @@ def sync_ppi_keymap(state):
     log('кнопка панели информации: %s' % (key or 'нет'), xbmc.LOGINFO)
 
 
+QUALITY_PROPS = ('MediaInfo.VideoStreams', 'MediaInfo.VideoQuality')
+
+
+def quality_short(stream):
+    """«4K», «1440», «AUTO» - подпись на кнопке «Качество» в OSD."""
+    name = stream.get('name') or ''
+    if name.replace('[B]', '').startswith(('Автоматически', 'Auto')):
+        return 'AUTO'
+    height = to_int(stream.get('height'))
+    if height >= 2000:
+        return '4K'
+    return str(height) if height else ''
+
+
+def publish_quality(streams, current=None):
+    if not streams or len(streams) < 2:
+        for prop in QUALITY_PROPS:
+            HOME.clearProperty(prop)
+        return
+    HOME.setProperty('MediaInfo.VideoStreams', str(len(streams)))
+    HOME.setProperty('MediaInfo.VideoQuality', quality_short(current or {}))
+
+
+def refresh_quality():
+    """Сколько вариантов видео у играющего потока. Больше одного бывает у
+    адаптивных потоков (YouTube отдаёт все качества разом) - тогда скин
+    показывает кнопку «Качество», она запускает quality.py."""
+    try:
+        for _ in range(AUDIO_RETRIES):
+            players = jsonrpc('Player.GetActivePlayers', {})
+            video = [p for p in players if p.get('type') == 'video'] if isinstance(players, list) else []
+            if not video:
+                publish_quality(None)
+                return
+            result = jsonrpc('Player.GetProperties',
+                             {'playerid': video[0]['playerid'],
+                              'properties': ['videostreams', 'currentvideostream']})
+            streams = result.get('videostreams') or []
+            if streams:
+                publish_quality(streams, result.get('currentvideostream'))
+                return
+            xbmc.sleep(int(AUDIO_RETRY_DELAY * 1000))
+        publish_quality(None)
+    except Exception as exc:  # noqa: BLE001 - кнопка не должна ронять сервис
+        log('video streams: %s' % exc, xbmc.LOGWARNING)
+
+
 class AudioTrack(xbmc.Player):
     """Имя текущей аудиодорожки -> свойства окна Home.
 
@@ -232,21 +348,28 @@ class AudioTrack(xbmc.Player):
     @staticmethod
     def stream_signature():
         stream = AudioTrack.current_stream() or {}
+        # У сетевых потоков (YouTube, kino.pub через inputstream.adaptive) кадр
+        # меняется сам: адаптивный выбор сбрасывает 4K до 1440p и обратно. Это не
+        # смена потока, плашка на это не нужна - ширину учитываем только у файлов.
+        width = xbmc.getInfoLabel('Player.Process(videowidth)') \
+            if is_supported(xbmc.getInfoLabel('Player.Filenameandpath')) else ''
         return (stream.get('index'), stream.get('codec'),
                 xbmc.getInfoLabel('VideoPlayer.VideoCodec'), xbmc.getInfoLabel('VideoPlayer.HdrType'),
-                xbmc.getInfoLabel('Player.Process(videowidth)'))
+                width)
 
     def onPlayBackStopped(self):
         clear_video()
         self.clear_av_flag()
         self.signature = None
         self.publish(None)
+        publish_quality(None)
 
     def onPlayBackEnded(self):
         clear_video()
         self.clear_av_flag()
         self.signature = None
         self.publish(None)
+        publish_quality(None)
 
     def flag_av_change(self):
         if not NEED_AV_FLAG:
@@ -267,6 +390,7 @@ class AudioTrack(xbmc.Player):
         HOME.clearProperty(AV_FLAG)
 
     def update(self):
+        threading.Thread(target=refresh_quality, daemon=True).start()
         if PANEL is not None:
             threading.Thread(target=self.refresh_video, daemon=True).start()
         if self.updating:
@@ -379,6 +503,8 @@ class Service(xbmc.Monitor):
         self.pending = set()
         self.dirty = 0
         self.current = None
+        self.tmdb_raw = None
+        self.countries = None
         self.prefetching = False
         self.start_prefetch()
 
@@ -471,7 +597,25 @@ class Service(xbmc.Monitor):
         self.save_cache()
         self.publish(None)
 
+    def sync_tmdb(self):
+        """Страна, бюджет, сборы выбранного - по-русски и коротко (свойства TMDb Helper)."""
+        raw = tuple(xbmc.getInfoLabel(TMDB_PROP % k) for k in
+                    ('Country', 'Budget', 'Revenue', 'Cast.1.Name', 'Cast.2.Name', 'Cast.3.Name'))
+        if raw == self.tmdb_raw:
+            return
+        self.tmdb_raw = raw
+        if self.countries is None:
+            self.countries = load_countries()
+        values = (short_countries(raw[0], self.countries), short_money(raw[1]), short_money(raw[2]),
+                  cast_lines([n for n in raw[3:] if n]))
+        for prop, value in zip(TMDB_OUT, values):
+            if value:
+                HOME.setProperty(prop, value)
+            else:
+                HOME.clearProperty(prop)
+
     def tick(self):
+        self.sync_tmdb()
         path = xbmc.getInfoLabel('ListItem.FileNameAndPath')
         if path == self.current:
             return

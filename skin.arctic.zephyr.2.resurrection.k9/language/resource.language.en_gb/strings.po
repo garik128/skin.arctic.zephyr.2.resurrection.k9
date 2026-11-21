@@ -2471,3 +2471,8 @@ msgstr ""
 msgctxt "#31857"
 msgid "Playback info button in video OSD"
 msgstr ""
+
+#: /1080i/Includes_Object.xml
+msgctxt "#31858"
+msgid "2 DV layers: plays as HDR10"
+msgstr ""

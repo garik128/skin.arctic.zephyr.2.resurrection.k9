@@ -24,21 +24,6 @@
                 </include>
             </include>
         </include>
-        <!-- soundbar-night-badge:start -->
-        <control type="group" id="9510" description="soundbar-night-badge">
-            <depth>DepthOSD+</depth>
-            <visible>!String.IsEmpty(Window(Home).Property(SoundbarNight))</visible>
-            <control type="image" id="9511">
-                <left>1815</left>
-                <top>30</top>
-                <width>75</width>
-                <height>75</height>
-                <animation effect="fade" start="0" end="100" time="400">Visible</animation>
-                <animation effect="fade" start="100" end="0" time="400">Hidden</animation>
-                <texture>soundbar-night.png</texture>
-            </control>
-        </control>
-        <!-- soundbar-night-badge:end -->
         <!-- android-start:start: плашки на старте для Kodi на Android (K9). Генерирует
              tools/skin-android-ppi.py - руками не править.
              CHANGES.md, п. 27 -->
@@ -250,7 +235,7 @@
         </control>
         <control type="group" id="9553">
             <depth>DepthOSD+</depth>
-            <visible>!String.IsEmpty(Window(Home).Property(K9Info.Active)) + [String.IsEqual(Player.Process(av.change),1) | String.IsEqual(Window(Home).Property(MediaInfo.AVChange),1)] + !Skin.HasSetting(K9.HideStartBottom)</visible>
+            <visible>!String.IsEmpty(Window(Home).Property(K9Info.Active)) + [String.IsEqual(Player.Process(av.change),1) | String.IsEqual(Window(Home).Property(MediaInfo.AVChange),1)] + !Skin.HasSetting(K9.HideStartBottom) + !PVR.IsPlayingTV</visible>
             <visible>!String.IsEmpty(Window(Home).Property(MediaInfo.AudioStreamTitle)) | !String.IsEmpty(Window(Home).Property(MediaInfo.Video.Kind))</visible>
             <visible>!Window.IsVisible(videoosd)</visible>
             <animation type="Hidden">
@@ -454,6 +439,109 @@
                         <label>$INFO[Window(Home).Property(MediaInfo.Video.Codec)]</label>
                         <visible>!String.IsEmpty(Window(Home).Property(MediaInfo.Video.Codec))</visible>
                     </control>
+                </control>
+            </control>
+        </control>
+        <control type="group" id="9573">
+            <depth>DepthOSD+</depth>
+            <visible>!String.IsEmpty(Window(Home).Property(K9Info.Active)) + PVR.IsPlayingTV + !Skin.HasSetting(K9.HideStartBottom)</visible>
+            <visible>Player.ShowInfo | Window.IsActive(DialogFullScreenInfo.xml) | !String.IsEmpty(Window(Home).Property(OSDInfo)) | Window.IsVisible(videoosd)</visible>
+            <visible>!String.IsEmpty(Window(Home).Property(MediaInfo.Video.Kind))</visible>
+            <animation type="Hidden">
+                <effect type="fade" start="100" end="0" time="500" tween="sine" />
+            </animation>
+            <left>510</left>
+            <top>140</top>
+            <control type="image" id="9574">
+                <left>0</left>
+                <top>0</top>
+                <width>900</width>
+                <height>72</height>
+                <texture border="22">k9ppi/glass.png</texture>
+            </control>
+            <control type="grouplist" id="9575">
+                <left>24</left>
+                <top>13</top>
+                <width>852</width>
+                <height>46</height>
+                <orientation>horizontal</orientation>
+                <align>center</align>
+                <itemgap>12</itemgap>
+                <usecontrolcoords>true</usecontrolcoords>
+                <control type="button" id="9576">
+                    <width>auto</width>
+                    <height>46</height>
+                    <font>k9_chip</font>
+                    <textoffsetx>16</textoffsetx>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <enable>false</enable>
+                    <textcolor>FF101010</textcolor>
+                    <disabledcolor>FF101010</disabledcolor>
+                    <texturefocus border="12">k9ppi/chip_hi.png</texturefocus>
+                    <texturenofocus border="12">k9ppi/chip_hi.png</texturenofocus>
+                    <label>$INFO[Window(Home).Property(MediaInfo.Video.Kind)]</label>
+                    <visible>!String.IsEmpty(Window(Home).Property(MediaInfo.Video.Kind))</visible>
+                </control>
+                <control type="button" id="9577">
+                    <width>auto</width>
+                    <height>46</height>
+                    <font>k9_chip</font>
+                    <textoffsetx>16</textoffsetx>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <enable>false</enable>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <disabledcolor>FFFFFFFF</disabledcolor>
+                    <texturefocus border="12">k9ppi/chip.png</texturefocus>
+                    <texturenofocus border="12">k9ppi/chip.png</texturenofocus>
+                    <label>$INFO[Window(Home).Property(MediaInfo.Video.Frame)]</label>
+                    <visible>!String.IsEmpty(Window(Home).Property(MediaInfo.Video.Frame))</visible>
+                </control>
+                <control type="button" id="9578">
+                    <width>auto</width>
+                    <height>46</height>
+                    <font>k9_chip</font>
+                    <textoffsetx>16</textoffsetx>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <enable>false</enable>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <disabledcolor>FFFFFFFF</disabledcolor>
+                    <texturefocus border="12">k9ppi/chip.png</texturefocus>
+                    <texturenofocus border="12">k9ppi/chip.png</texturenofocus>
+                    <label>$INFO[Window(Home).Property(MediaInfo.Video.Fps)]</label>
+                    <visible>!String.IsEmpty(Window(Home).Property(MediaInfo.Video.Fps))</visible>
+                </control>
+                <control type="button" id="9579">
+                    <width>auto</width>
+                    <height>46</height>
+                    <font>k9_chip</font>
+                    <textoffsetx>16</textoffsetx>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <enable>false</enable>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <disabledcolor>FFFFFFFF</disabledcolor>
+                    <texturefocus border="12">k9ppi/chip.png</texturefocus>
+                    <texturenofocus border="12">k9ppi/chip.png</texturenofocus>
+                    <label>$INFO[Window(Home).Property(MediaInfo.Video.Codec)]</label>
+                    <visible>!String.IsEmpty(Window(Home).Property(MediaInfo.Video.Codec))</visible>
+                </control>
+                <control type="button" id="9580">
+                    <width>auto</width>
+                    <height>46</height>
+                    <font>k9_chip</font>
+                    <textoffsetx>16</textoffsetx>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <enable>false</enable>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <disabledcolor>FFFFFFFF</disabledcolor>
+                    <texturefocus border="12">k9ppi/chip.png</texturefocus>
+                    <texturenofocus border="12">k9ppi/chip.png</texturenofocus>
+                    <label>$INFO[Window(Home).Property(MediaInfo.AudioFormat)]</label>
+                    <visible>!String.IsEmpty(Window(Home).Property(MediaInfo.AudioFormat))</visible>
                 </control>
             </control>
         </control>
