@@ -512,7 +512,9 @@ def build_start():
     has_audio = has_name
     v += ['        <control type="group" id="%d">' % ids(),
           '            <depth>DepthOSD+</depth>',
-          '            <visible>%s + %s + !Skin.HasSetting(K9.HideStartBottom)</visible>' % (ACTIVE, SHOW),
+          # на прямом эфире IPTV (PVR) нижние карточки не нужны: дорожка у канала одна, а плашка
+          # вылезает на каждом переключении канала (решение пользователя 21.11.2026)
+          '            <visible>%s + %s + !Skin.HasSetting(K9.HideStartBottom) + !PVR.IsPlayingTV</visible>' % (ACTIVE, SHOW),
           '            <visible>%s | %s</visible>' % (has_audio, has_video),
           '            <visible>!Window.IsVisible(videoosd)</visible>',
           hidden_fade(12),
@@ -552,7 +554,32 @@ def build_start():
           chip(ids, 20, "MEL", "String.IsEqual(%s,MEL)" % p("Layer"))]
     for k in ("Frame", "Fps", "Codec"):
         v.append(chip(ids, 20, "$INFO[%s]" % p(k), "!String.IsEmpty(%s)" % p(k)))
-    v += ['                </control>', '            </control>', '        </control>', '        ' + SEND]
+    v += ['                </control>', '            </control>', '        </control>']
+    # прямой эфир IPTV (PVR): нижние карточки там скрыты (п. 43), а разрешение, частота и кодек
+    # канала нужны - родная инфо PVR их не показывает. Одна строка плашек вверху, под логотипами;
+    # видна вместе с родной панелью канала и OSD (п. 44)
+    tw, th = 900, 72
+    v += ['        <control type="group" id="%d">' % ids(),
+          '            <depth>DepthOSD+</depth>',
+          '            <visible>%s + PVR.IsPlayingTV + !Skin.HasSetting(K9.HideStartBottom)</visible>' % ACTIVE,
+          # живёт как родная панель канала, а не как плашки фильма (те держатся K9.StartSeconds):
+          # Player.ShowInfo Kodi держит pvrmenu.displaychannelinfo секунд после переключения (5)
+          '            <visible>Player.ShowInfo | Window.IsActive(DialogFullScreenInfo.xml) | '
+          '!String.IsEmpty(Window(Home).Property(OSDInfo)) | Window.IsVisible(videoosd)</visible>',
+          '            <visible>%s</visible>' % has_video,
+          hidden_fade(12),
+          '            <left>%d</left>' % ((1920 - tw) // 2), '            <top>140</top>',
+          ictl(ids, 12, "image", left=0, top=0, width=tw, height=th, texture=("k9ppi/glass.png", 22)),
+          '            <control type="grouplist" id="%d">' % ids(),
+          '                <left>24</left>', '                <top>13</top>',
+          '                <width>%d</width>' % (tw - 48), '                <height>46</height>',
+          '                <orientation>horizontal</orientation>', '                <align>center</align>',
+          '                <itemgap>12</itemgap>', '                <usecontrolcoords>true</usecontrolcoords>',
+          chip(ids, 16, "$INFO[%s]" % p("Kind"), has_video, hi=True)]
+    for k in ("Frame", "Fps", "Codec"):
+        v.append(chip(ids, 16, "$INFO[%s]" % p(k), "!String.IsEmpty(%s)" % p(k)))
+    v += [chip(ids, 16, "$INFO[%s]" % (MI % "AudioFormat"), "!String.IsEmpty(%s)" % (MI % "AudioFormat")),
+          '            </control>', '        </control>', '        ' + SEND]
     return "\n".join(v) + "\n"
 
 

@@ -664,6 +664,25 @@
                     <label>$VAR[Label_ListItem_HDRType]</label>
                     <visible>Skin.HasSetting(TextCodecs) + !String.IsEmpty(ListItem.HdrType)</visible>
                 </control>
+                <!-- DV двумя дорожками (.m2ts/.ts с диска): Kodi на Android берёт только базовый слой,
+                     на экран уйдёт HDR10. Напоминание перепаковать (garik128: bin/dv-merge.sh) -->
+                <control type="button">
+                    <visible>!Skin.HasSetting(K9.HideChips)</visible>
+                    <centertop>50%</centertop>
+                    <width>auto</width>
+                    <height>46</height>
+                    <font>k9_chip</font>
+                    <textoffsetx>16</textoffsetx>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <enable>false</enable>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <disabledcolor>FFFFFFFF</disabledcolor>
+                    <texturefocus border="12" colordiffuse="FFD32F2F">k9ppi/chip_hi.png</texturefocus>
+                    <texturenofocus border="12" colordiffuse="FFD32F2F">k9ppi/chip_hi.png</texturenofocus>
+                    <label>2 слоя DV: пойдёт HDR10</label>
+                    <visible>String.IsEqual(ListItem.HdrType,dolbyvision) + [String.IsEqual(ListItem.FileExtension,m2ts) | String.IsEqual(ListItem.FileExtension,ts)] + !String.IsEmpty(Window(Home).Property(K9Info.Active))</visible>
+                </control>
                 <control type="button">
                     <visible>!Skin.HasSetting(K9.HideChips)</visible>
                     <centertop>50%</centertop>

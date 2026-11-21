@@ -745,35 +745,644 @@
 
     <include name="Home_Multi_Netflix">
         <include>Global_Background</include>
-        <!-- k9-clock-card:start - карточка позади часов и итогов (CHANGES.md, п. 21) -->
-        <control type="group" id="9522">
+        <!-- k9-home-bar:start -->
+        <control type="group" id="9700">
             <include>Defs_InfoDialog_Visible</include>
-            <visible>!Skin.HasSetting(DisableClock) + !Skin.HasSetting(K9.HideClockCard)</visible>
+            <visible>!Skin.HasSetting(DisableClock)</visible>
             <include>Animation_FadeInOut</include>
-            <!-- видна сразу, не дожидаясь итогов; без script.movieaudio - только часы -->
-            <control type="image" id="9523">
-                <left>1410</left>
-                <top>48</top>
-                <width>462</width>
-                <height>188</height>
-                <texture border="22">k9ppi/glass.png</texture>
-                <visible>System.HasAddon(script.movieaudio) + !Skin.HasSetting(K9.HideTotals)</visible>
+            <control type="image" id="9701">
+                <left>0</left><top>0</top><width>1920</width><height>46</height>
+                <texture>k9ppi/topbar.png</texture>
+                <visible>!Skin.HasSetting(K9.HideClockCard)</visible>
             </control>
-            <control type="image" id="9525">
-                <left>1410</left>
-                <top>48</top>
-                <width>462</width>
-                <height>102</height>
-                <texture border="22">k9ppi/glass.png</texture>
-                <visible>!System.HasAddon(script.movieaudio) | Skin.HasSetting(K9.HideTotals)</visible>
+            <control type="grouplist" id="9802">
+                <left>36</left><top>0</top><width>770</width><height>34</height>
+                <align>left</align>
+                <orientation>horizontal</orientation>
+                <itemgap>14</itemgap>
+                <usecontrolcoords>true</usecontrolcoords>
+                <control type="label" id="9803">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>99FFFFFF</textcolor>
+                    <label></label>
+                    <visible>!String.IsEmpty(Window(Home).Property(SeriesTotalsShort)) + System.HasAddon(script.movieaudio) + !Skin.HasSetting(K9.HideTotals)</visible>
+                </control>
+                <control type="label" id="9804">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(SeriesTotalsShort)]</label>
+                    <visible>!String.IsEmpty(Window(Home).Property(SeriesTotalsShort)) + System.HasAddon(script.movieaudio) + !Skin.HasSetting(K9.HideTotals)</visible>
+                </control>
+                <control type="label" id="9805">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>$VAR[ColorHighlight]</textcolor>
+                    <label>|</label>
+                    <visible>!String.IsEmpty(Window(Home).Property(SeriesTotalsShort)) + System.HasAddon(script.movieaudio) + !Skin.HasSetting(K9.HideTotals) + !String.IsEmpty(Window(Home).Property(MovieTotalsShort)) + System.HasAddon(script.movieaudio) + !Skin.HasSetting(K9.HideTotals)</visible>
+                </control>
+                <control type="label" id="9806">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>99FFFFFF</textcolor>
+                    <label></label>
+                    <visible>!String.IsEmpty(Window(Home).Property(MovieTotalsShort)) + System.HasAddon(script.movieaudio) + !Skin.HasSetting(K9.HideTotals)</visible>
+                </control>
+                <control type="label" id="9807">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(MovieTotalsShort)]</label>
+                    <visible>!String.IsEmpty(Window(Home).Property(MovieTotalsShort)) + System.HasAddon(script.movieaudio) + !Skin.HasSetting(K9.HideTotals)</visible>
+                </control>
+            </control>
+            <control type="grouplist" id="9812">
+                <left>810</left><top>0</top><width>300</width><height>34</height>
+                <align>center</align>
+                <orientation>horizontal</orientation>
+                <itemgap>14</itemgap>
+                <usecontrolcoords>true</usecontrolcoords>
+                <control type="label" id="9813">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Bar_Date]</label>
+                    <visible>true</visible>
+                </control>
+                <control type="label" id="9814">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>$VAR[ColorHighlight]</textcolor>
+                    <label>|</label>
+                    <visible>true</visible>
+                </control>
+                <control type="label" id="9815">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[System.Time]</label>
+                    <visible>true</visible>
+                </control>
+            </control>
+            <control type="grouplist" id="9819">
+                <left>1130</left><top>0</top><width>754</width><height>34</height>
+                <align>right</align>
+                <orientation>horizontal</orientation>
+                <itemgap>14</itemgap>
+                <usecontrolcoords>true</usecontrolcoords>
+                <control type="image" id="9826">
+                    <width>28</width><height>34</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture>$INFO[Weather.FanartCode,resource://resource.images.weathericons.white/,.png]</texture>
+                    <visible>Weather.IsFetched + !String.IsEmpty(Weather.Temperature)</visible>
+                </control>
+                <control type="label" id="9827">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Weather.Temperature]</label>
+                    <visible>Weather.IsFetched + !String.IsEmpty(Weather.Temperature)</visible>
+                </control>
+                <control type="label" id="9820">
+                    <width max="300">auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>B3FFFFFF</textcolor>
+                    <label>$INFO[Weather.Conditions]</label>
+                    <visible>Weather.IsFetched + !String.IsEmpty(Weather.Temperature) + !String.IsEmpty(Weather.Conditions)</visible>
+                </control>
+                <control type="label" id="9821">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>$VAR[ColorHighlight]</textcolor>
+                    <label>|</label>
+                    <visible>Weather.IsFetched + !String.IsEmpty(Weather.Temperature) + Weather.IsFetched + !String.IsEmpty(Weather.Temperature) + !String.IsEmpty(Window(Weather).Property(Day1.HighTemp)) + !String.IsEmpty(Window(Weather).Property(Day1.LowTemp)</visible>
+                </control>
+                <control type="label" id="9824">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>B3FFFFFF</textcolor>
+                    <label>$LOCALIZE[31580]</label>
+                    <visible>Weather.IsFetched + !String.IsEmpty(Weather.Temperature) + !String.IsEmpty(Window(Weather).Property(Day1.HighTemp)) + !String.IsEmpty(Window(Weather).Property(Day1.LowTemp)</visible>
+                </control>
+                <control type="image" id="9828">
+                    <width>24</width><height>34</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture>$INFO[Window(Weather).Property(Day1.FanartCode),resource://resource.images.weathericons.white/,.png]</texture>
+                    <visible>Weather.IsFetched + !String.IsEmpty(Weather.Temperature) + !String.IsEmpty(Window(Weather).Property(Day1.HighTemp)) + !String.IsEmpty(Window(Weather).Property(Day1.LowTemp) + !String.IsEmpty(Window(Weather).Property(Day1.FanartCode))</visible>
+                </control>
+                <control type="label" id="9825">
+                    <width>auto</width><height>34</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Weather).Property(Day1.HighTemp),,°]/$INFO[Window(Weather).Property(Day1.LowTemp),,°]</label>
+                    <visible>Weather.IsFetched + !String.IsEmpty(Weather.Temperature) + !String.IsEmpty(Window(Weather).Property(Day1.HighTemp)) + !String.IsEmpty(Window(Weather).Property(Day1.LowTemp)</visible>
+                </control>
             </control>
         </control>
-        <!-- k9-clock-card:end -->
+        <control type="group" id="9709">
+            <include>Defs_InfoDialog_Visible</include>
+            <visible>[[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) | [String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)]] + [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director.1.Name) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Creator.1.Name) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Network.1.Name) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Country.1.Name)]]</visible>
+            <include>Animation_FadeInOut</include>
+            <control type="grouplist" id="9790">
+                <left>1396</left><top>74</top><width>476</width><height>520</height>
+                <orientation>vertical</orientation>
+                <itemgap>0</itemgap>
+                <usecontrolcoords>true</usecontrolcoords>
+                <control type="image" id="9791">
+                    <width>476</width><height>20</height>
+                    <texture border="22,0,22,0">k9ppi/panel_top.png</texture>
+                </control>
+            <control type="group" id="9710">
+                <height>46</height>
+                <visible>String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director.1.Name))</visible>
+                <control type="image" id="9711">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9712">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9713">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[20339]</label>
+                </control>
+                <control type="label" id="9714">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.2.Name),$COMMA ,]</label>
+                </control>
+            </control>
+            <control type="group" id="9715">
+                <height>46</height>
+                <visible>String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Writer.1.Name))</visible>
+                <control type="image" id="9716">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9717">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9718">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[20417]</label>
+                </control>
+                <control type="label" id="9719">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Writer.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Writer.2.Name),$COMMA ,]</label>
+                </control>
+            </control>
+            <control type="group" id="9720">
+                <height>76</height>
+                <visible>String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name))</visible>
+                <control type="image" id="9721">
+                    <left>0</left><top>0</top><width>476</width><height>76</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9722">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9723">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[206]</label>
+                </control>
+                <control type="textbox" id="9724">
+                    <left>214</left><top>8</top><width>248</width><height>60</height>
+                    <aligny>top</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Panel_Cast]</label>
+                </control>
+            </control>
+            <control type="group" id="9725">
+                <height>46</height>
+                <visible>String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Country.1.Name))</visible>
+                <control type="image" id="9726">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9727">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9728">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[574]</label>
+                </control>
+                <control type="label" id="9729">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Panel_Country]</label>
+                </control>
+            </control>
+            <control type="group" id="9730">
+                <height>46</height>
+                <visible>String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name))</visible>
+                <control type="image" id="9731">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9732">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9733">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[572]</label>
+                </control>
+                <control type="label" id="9734">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio.2.Name),$COMMA ,]</label>
+                </control>
+            </control>
+            <control type="group" id="9735">
+                <height>46</height>
+                <visible>String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Budget))</visible>
+                <control type="image" id="9736">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9737">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9738">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[31560]</label>
+                </control>
+                <control type="label" id="9739">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Panel_Budget]</label>
+                </control>
+            </control>
+            <control type="group" id="9740">
+                <height>46</height>
+                <visible>String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Revenue))</visible>
+                <control type="image" id="9741">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9742">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9743">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[31561]</label>
+                </control>
+                <control type="label" id="9744">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Panel_Revenue]</label>
+                </control>
+            </control>
+            <control type="group" id="9745">
+                <height>46</height>
+                <visible>String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) + [!String.IsEmpty(ListItem.Set) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Set.Name))]</visible>
+                <control type="image" id="9746">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9747">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9748">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[31562]</label>
+                </control>
+                <control type="label" id="9749">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Panel_Collection]</label>
+                </control>
+            </control>
+            <control type="group" id="9750">
+                <height>46</height>
+                <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Creator.1.Name))</visible>
+                <control type="image" id="9751">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9752">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9753">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[31563]</label>
+                </control>
+                <control type="label" id="9754">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Creator.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Creator.2.Name),$COMMA ,]</label>
+                </control>
+            </control>
+            <control type="group" id="9755">
+                <height>46</height>
+                <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Network.1.Name))</visible>
+                <control type="image" id="9756">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9757">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9758">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[31564]</label>
+                </control>
+                <control type="label" id="9759">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Network.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Network.2.Name),$COMMA ,]</label>
+                </control>
+            </control>
+            <control type="group" id="9760">
+                <height>46</height>
+                <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status))</visible>
+                <control type="image" id="9761">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9762">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9763">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[31565]</label>
+                </control>
+                <control type="label" id="9764">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Panel_Status]</label>
+                </control>
+            </control>
+            <control type="group" id="9765">
+                <height>46</height>
+                <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(ListItem.Property(TotalSeasons))</visible>
+                <control type="image" id="9766">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9767">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9768">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[31566]</label>
+                </control>
+                <control type="label" id="9769">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[ListItem.Property(TotalSeasons)] / $INFO[ListItem.Property(TotalEpisodes)]</label>
+                </control>
+            </control>
+            <control type="group" id="9770">
+                <height>46</height>
+                <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired))</visible>
+                <control type="image" id="9771">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9772">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9773">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[31567]</label>
+                </control>
+                <control type="label" id="9774">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Next_Aired)]</label>
+                </control>
+            </control>
+            <control type="group" id="9775">
+                <height>46</height>
+                <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Country.1.Name))</visible>
+                <control type="image" id="9776">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9777">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9778">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[574]</label>
+                </control>
+                <control type="label" id="9779">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Panel_Country]</label>
+                </control>
+            </control>
+            <control type="group" id="9780">
+                <height>46</height>
+                <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name))</visible>
+                <control type="image" id="9781">
+                    <left>0</left><top>0</top><width>476</width><height>46</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9782">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9783">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[572]</label>
+                </control>
+                <control type="label" id="9784">
+                    <left>214</left><top>0</top><width>248</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio.2.Name),$COMMA ,]</label>
+                </control>
+            </control>
+            <control type="group" id="9785">
+                <height>76</height>
+                <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name))</visible>
+                <control type="image" id="9786">
+                    <left>0</left><top>0</top><width>476</width><height>76</height>
+                    <texture border="22,0,22,0">k9ppi/panel_mid.png</texture>
+                </control>
+                <control type="label" id="9787">
+                    <left>24</left><top>0</top><width>30</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_iconic</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label></label>
+                </control>
+                <control type="label" id="9788">
+                    <left>58</left><top>0</top><width>152</width><height>46</height>
+                    <aligny>center</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>80FFFFFF</textcolor>
+                    <label>$LOCALIZE[206]</label>
+                </control>
+                <control type="textbox" id="9789">
+                    <left>214</left><top>8</top><width>248</width><height>60</height>
+                    <aligny>top</aligny>
+                    <font>font_tiny_23</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>$VAR[K9_Panel_Cast]</label>
+                </control>
+            </control>
+                <control type="image" id="9792">
+                    <width>476</width><height>20</height>
+                    <texture border="22,0,22,0">k9ppi/panel_bot.png</texture>
+                </control>
+            </control>
+        </control>
+        <!-- k9-home-bar:end -->
         <!-- k9-home-info: заголовок и логотип сверху - по настройке K9.ShowHeader (по умолчанию
              нет), описание выше и длиннее (CHANGES.md, п. 22, 32) -->
         <include content="Topbar">
             <param name="visible" value="Skin.HasSetting(K9.ShowHeader) + ControlGroup(3000).HasFocus()" />
             <param name="header" value="Skin.HasSetting(K9.ShowHeader)" />
+            <param name="right" value="false" />
         </include>
         <control type="group">
             <top>view_top</top>
